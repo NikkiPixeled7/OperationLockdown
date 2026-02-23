@@ -1,5 +1,5 @@
 ############## Import ##############
-import random, time, sys, tkinter, os
+import random, time, sys, tkinter, os, shutil
 from ASCIIArt import gameLogo
 # test push
 # test pull
@@ -47,7 +47,6 @@ def load_animation(load_str, speed, length):
 
         x = ord(load_str_list[i])
 
-        y = 0
 
         if x != 32 and x != 46:
             if x > 90:
@@ -65,7 +64,7 @@ def load_animation(load_str, speed, length):
     load_str = res
 
     anicount = (anicount + 1) % 4
-    i = (i + 1) % ls_len
+    i = (i + 1) % str_len
     count_time = + 1
 
 
@@ -107,12 +106,12 @@ def gameIntro():
     pause()
     clearText()
 
-    text = "\033[1mOperation Lockdown\033[0m is a text-based choose-your-own-adventure game\
- inspired by the tactical gameplay of Rainbow Six Siege, you will be taking\
+    text = """\033[1mOperation Lockdown\033[0m is a text-based choose-your-own-adventure game\
+ inspired by the tactical gameplay of Rainbow Six Siege,you will be taking\
  on the role of an elite operator during a high-risk hostage rescue mission.\
  You will make choices on what happens next, be careful though since some\
  paths may lead to an abrupt ending. There are many different endings, some\
- good and some bad. Have fun."
+ good and some bad. Have fun."""
     sleep_time = 0.015
 
     for char in text:
@@ -139,9 +138,9 @@ def startGame():
 ############## Main Loop ##############
 while True:
     # start game function
-    # gameIntro()
+    gameIntro()
 
-    # startGame()
+    startGame()
 
     # play again function
     ynInput = input("\nWould you like to play again? " + "\U00002705 " + " Y" + \
