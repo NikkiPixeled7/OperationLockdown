@@ -2,7 +2,7 @@
 import random, time, sys, tkinter, os
 from ASCIIArt import gameLogo
 # test push
-
+# test pull
 ############## (Reusable) Definitions ##############
 
 # Typewriter Effect
@@ -173,4 +173,5 @@ while True:
 
 print("Quitting...")
 sys.exit(0)
+
 quit()
