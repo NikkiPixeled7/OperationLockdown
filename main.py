@@ -1,5 +1,5 @@
 ############## Import ##############
-import random, time, sys, tkinter, os, shutil
+import random, time, sys, tkinter, os, shutil, platform
 from ASCIIArt import gameLogo
 # test push
 # test pull
@@ -14,7 +14,11 @@ def print_centre(s):
 
 
 def clearText():
-    os.system("clear")
+    print(platform.system())
+    if platform.system() == "Windows":
+        os.system("cls")
+    else:
+        os.system("clear")
 
 
 def pause():
@@ -79,7 +83,7 @@ else:
 def chooseOption(numOfOpt):
     choice = 0
     while choice < 1 or choice > numOfOpt:
-        print("1 to " + str(numOfOpt), end='')
+        print("\nChoose A Number 1 to " + str(numOfOpt), end='')
         choice = input()
         if choice != '1' and choice != '2' and choice != '3' and choice != '4':
             choice = 0
@@ -106,12 +110,10 @@ def gameIntro():
     pause()
     clearText()
 
-    text = """\033[1mOperation Lockdown\033[0m is a text-based choose-your-own-adventure game\
- inspired by the tactical gameplay of Rainbow Six Siege,you will be taking\
- on the role of an elite operator during a high-risk hostage rescue mission.\
- You will make choices on what happens next, be careful though since some\
- paths may lead to an abrupt ending. There are many different endings, some\
- good and some bad. Have fun."""
+    text = """\033[1;35mOperation Lockdown\033[0m is a text-based choose-your-own-adventure game inspired by the tactical gameplay of Rainbow Six Siege,\n \
+    you will be taking on the role of an elite operator during a \033[1;35mhigh-risk \033[0mhostage rescue mission. \n \
+    You will make choices on what happens next, be careful though since some  paths may lead to an \033[1;35mabrupt ending.\033[0m\n \
+    There are many different endings, some \033[32mgood\033[0m and some \033[31mbad\033[0m. Have fun."""
     sleep_time = 0.015
 
     for char in text:
@@ -119,11 +121,24 @@ def gameIntro():
         sys.stdout.flush()
         time.sleep(sleep_time)
     print("\n\n")
-
+def level_1_entry():
+    print("You arrive outside the building where hostages are being held. Police sirens echo behind you as your team waits for your command.\n \
+         This is the moment where you decide how to enter the building, knowing that your choice will affect how dangerous the mission becomes.")
+    time.sleep(1)
+    print("\n")
+    print("Where Will You Go?")
+    print("   1. Front Lobby")
+    print("   2. Rooftop Rappel")
+    print("   3. Parking Garage")
+    chooseOption(3)
+    pause() #stopped here
 
 def startGame():
-    print("GameStart not initiated... please try again later")
-    time.sleep(3)
+    pause()
+    time.sleep(1.5)
+    clearText()
+    level_1_entry()
+
 
 
 ############## ASCII Art ##############
@@ -142,7 +157,8 @@ while True:
 
     startGame()
 
-    # play again function
+
+    ######### play again function
     ynInput = input("\nWould you like to play again? " + "\U00002705 " + " Y" + \
                     " / " + "\U0000274C " + " N\n")
     if ynInput == 'y' or ynInput == 'Y':
