@@ -1,11 +1,40 @@
 ############## Import ##############
 import random, time, sys, tkinter, os, shutil, platform
 from ASCIIArt import gameLogo
+
+
+############## Global Variables ##############
+
+choice = 0
+winCounter = 0
+loseCounter = 0
+
 ############## (Reusable) Definitions ##############
+
+## Typewriter
+def typeWriter(text):
+    sleep_time = 0.02
+
+    for char in text:
+        sys.stdout.write(char)
+        sys.stdout.flush()
+        time.sleep(sleep_time)
 
 #  How to use --->   print_centre("enter text here")
 def print_centre(s):
     print(s.center(shutil.get_terminal_size().columns))
+
+def endMsg():
+    msgNum = random.randint(1,4)
+    if msgNum == 1:
+        print("\nMission failed… better luck next time!")
+    elif msgNum == 2:
+        print("\nYou didn’t make it this time.")
+    elif msgNum == 4:
+        print("\nOperation unsuccessful. Try again.")
+    else:
+        print("\nThe mission ends here. Don’t give up!")
+
 
 
 def clearText():
@@ -17,7 +46,7 @@ def clearText():
 
 
 def pause():
-    input("\033[1mPress \033[31mEnter\033[0;1;39m To Continue\033[0m\n")
+    input("\033[1mPress \033[32mEnter\033[0;1;39m To Continue\033[0m\n")
 
 
 # How to Use Animated Text Func
@@ -76,20 +105,205 @@ else:
 # Choose Option Function
 
 def chooseOption(numOfOpt):
+    global choice
     choice = 0
     while choice < 1 or choice > numOfOpt:
-        print("\nChoose A Number 1 to " + str(numOfOpt), end='')
+        print("\nChoose A Number 1 to " + str(numOfOpt) + "\n>>> ", end='')
         choice = input()
         if choice != '1' and choice != '2' and choice != '3' and choice != '4':
             choice = 0
-        if choice == '1' or choice == '2' or choice == '3' or choice == '4':
+        else:
             choice = int(choice)
+
+        if choice == 0:
+            print("Invalid Choice, Please Try Again..")
+
         print("\n\n")
-        return choice
+    return choice
+
 
 
 ############## (Single Use/ + Retry Use) Definitions ##############
 
+### Level A (Front Lobby) ###
+def rushLobby():
+    trl1 = "You charge into the lobby head-on, risking a firefight."
+    typeWriter(trl1)
+    time.sleep(.67)
+    print("\n")
+    print("Where Will You Go?")
+    print("   1. Push Stairs")
+    print("   2. Clear Side Rooms")
+    print("   3. Hold Lobby")
+    chooseOption(3)
+    clearText()
+    if choice == 1:
+        pushStairs()
+    elif choice == 2:
+        clearSideRooms()
+    else:
+        holdLobby()
+
+def flashbangEntry():
+    tfe1 = "You throw a flashbang to stun enemies before moving."
+    typeWriter(tfe1)
+    time.sleep(.67)
+    print("\n")
+    print("Where Will You Go?")
+    print("   1. Advance After Flash")
+    print("   2. Reload & Wait")
+    print("   3. Retreat & Regroup")
+    chooseOption(3)
+    clearText()
+    if choice == 1:
+        advanceAfterFlash()
+    elif choice == 2:
+        reloadAndWait()
+    else:
+        retreatAndRegroup()
+
+def droneRecon():
+    tdr1 = "You use a drone to scout the lobby for hostiles or hostages."
+    typeWriter(tdr1)
+    time.sleep(.67)
+    print("\n")
+    print("Where Will You Go?")
+    print("   1. Follow Intel")
+    print("   2. Ignore Intel")
+    print("   3. Reposition")
+    chooseOption(3)
+    clearText()
+    if choice == 1:
+        followIntel()
+    elif choice == 2:
+        ignoreIntel()
+    else:
+        reposition()
+
+def fallBack():
+    tfb1 = "You retreat to plan your next move, but taking too long allows the enemies to reinforce their positions. By the time you return, the lobby is heavily guarded, and your chance for a quick entry is lost."
+    typeWriter(tfb1)
+    time.sleep(.67)
+    print("\n")
+    global loseCounter
+    loseCounter += 1
+
+##### Level A1 ##
+
+def pushStairs():
+    tps1 = "Move up the stairs to reach upper floors."
+    typeWriter(tps1)
+    time.sleep(.67)
+    print("\n")
+    print("What Next? (What Will You Pick \U0001F914)")
+    print("   1. Breach Objective")
+    chooseOption(1)
+    clearText()
+    if choice == 1:
+        breachObjective()
+
+def breachObjective():
+    tps1 = "You breach the objective room successfully, but the tension is high. If your timing is perfect, you defuse the bomb and complete the mission.\n\
+    If not, a misstep triggers the explosives, ending the operation in failure. (33% Chance)"
+    typeWriter(tps1)
+    time.sleep(.67)
+    breachGuess = random.randint(1,3)
+    if breachGuess == 2:
+        print("\nGood Job You Win!!!")
+        global winCounter
+        winCounter += 1
+    elif breachGuess == 3 or breachGuess == 1:
+        endMsg()
+        global loseCounter
+        loseCounter += 1
+
+def clearSideRooms():
+    tcsr1 = "You spend too long searching the side rooms. While you were distracted, enemy reinforcements secure the main objective, leaving you no choice but to retreat. The mission is compromised."
+    typeWriter(tcsr1)
+    time.sleep(.67)
+    print("\n")
+    endMsg()
+    global loseCounter
+    loseCounter += 1
+
+def holdLobby():
+    thl1 = "You try to hold the lobby, but the enemies quickly flank your position. Overwhelmed, you’re forced to pull back, and the mission fails before you can reach the objective."
+    typeWriter(thl1)
+    time.sleep(.67)
+    print("\n")
+    endMsg()
+    global loseCounter
+    loseCounter += 1
+
+##### Level A2 ##
+
+def advanceAfterFlash():
+    taaf1 = "You push forward too quickly, but the enemies recover faster than expected. You’re forced to retreat."
+    typeWriter(taaf1)
+    time.sleep(.67)
+    print("\n")
+    endMsg()
+    global loseCounter
+    loseCounter += 1
+
+def reloadAndWait():
+    traw1 = "Waiting gives the enemies time to regroup. Your advance is blocked, and the mission fails."
+    typeWriter(traw1)
+    time.sleep(.67)
+    print("\n")
+    endMsg()
+    global loseCounter
+    loseCounter += 1
+
+def retreatAndRegroup():
+    traw1 = "Pulling back takes too long, and the opportunity slips away. You’re forced to abort the mission."
+    typeWriter(traw1)
+    time.sleep(.67)
+    print("\n")
+    endMsg()
+    global loseCounter
+    loseCounter += 1
+
+##### Level A3 ##
+
+def followIntel():
+    tfi1 = "You follow the intel carefully, avoid enemy patrols, and reach the objective safely. The mission is a success!"
+    typeWriter(tfi1)
+    time.sleep(.67)
+    print("\n")
+    print("Nice Job, You Won!")
+    global winCounter
+    winCounter += 1
+
+def ignoreIntel():
+    tit1 = "Without guidance, you stumble into enemy territory and must retreat. The operation ends here."
+    typeWriter(tit1)
+    time.sleep(.67)
+    print("\n")
+    endMsg()
+    global loseCounter
+    loseCounter += 1
+
+def reposition():
+    tr1 = "Repositioning wastes too much time, letting the enemies gain the advantage. You’re forced to abort the mission."
+    typeWriter(tr1)
+    time.sleep(.67)
+    print("\n")
+    endMsg()
+    global loseCounter
+    loseCounter += 1
+
+### End of Level A, Start of Level B ###
+
+##### Level B1 ##
+
+##### Level B2 ##
+
+##### Level B3 ##
+
+##### Level B4 ##
+
+### End of Level B, Start of Level C ###
 def gameIntro():
     welcomeText = "\033[1;35mWelcome\033[0m To Operation Lockdown"
     width = 30
@@ -99,26 +313,101 @@ def gameIntro():
     name = str(input("What Can I Call You?\n\
     >>> "))
     print("\n")
-    time.sleep(1.25)
-    print("I Hope You Are Ready Mr. " + (name) + ".\n")
+    time.sleep(.25)
+    print("I Hope You Are Ready\033[1;31m Mr. " + (name) + "\033[0m.\n")
 
     pause()
     clearText()
 
-    text = """\033[1;35mOperation Lockdown\033[0m is a text-based choose-your-own-adventure game inspired by the tactical gameplay of Rainbow Six Siege,\n \
-    you will be taking on the role of an elite operator during a \033[1;35mhigh-risk \033[0mhostage rescue mission. \n \
-    You will make choices on what happens next, be careful though since some  paths may lead to an \033[1;35mabrupt ending.\033[0m\n \
-    There are many different endings, some \033[32mgood\033[0m and some \033[31mbad\033[0m. Have fun."""
+    text = """\033[1;35mOperation Lockdown\033[0m is a text-based choose-your-own-adventure game inspired by the tactical gameplay of Rainbow Six Siege,\n\
+you will be taking on the role of an elite operator during a \033[1;35mhigh-risk \033[0mhostage rescue mission. \n \
+You will make choices on what happens next, be careful though since some  paths may lead to an \033[1;35mabrupt ending.\033[0m\n\
+There are many different endings, some \033[32mgood\033[0m and some \033[31mbad\033[0;1m. Have fun.\033[\n"""
     sleep_time = 0.015
 
     for char in text:
         sys.stdout.write(char)
         sys.stdout.flush()
         time.sleep(sleep_time)
+
+    print("Win Counter: " + str(winCounter))
+    print("Lose Counter: " + str(loseCounter))
     print("\n\n")
-def level_1_entry():
-    print("You arrive outside the building where hostages are being held. Police sirens echo behind you as your team waits for your command.\n \
-         This is the moment where you decide how to enter the building, knowing that your choice will affect how dangerous the mission becomes.")
+
+def frontLobby():
+    tfl1 = "You enter the lobby where enemies are waiting and alarms may trigger."
+    typeWriter(tfl1) #text front lobby 1
+    time.sleep(.67)
+    print("\n")
+    print("Where Will You Go?")
+    print("   1. Rush Lobby")
+    print("   2. Flashbang Entry")
+    print("   3. Drone Recon")
+    print("   4. Fall Back")
+    chooseOption(4)
+    clearText()
+    if choice == 1:
+        rushLobby()
+    elif choice == 2:
+        flashbangEntry()
+    elif choice == 3:
+        droneRecon()
+    else:
+        fallBack()
+
+def rooftopRappel():
+    trr1 = "You rappel onto the roof to make a stealthy entry."
+    typeWriter(trr1)
+    time.sleep(.67)
+    print("\n")
+    print("Where Will You Go?")
+    print("   1. Skylight Entry")
+    print("   2. Stairwell Approach")
+    print("   3. Roof Hop")
+    print("   4. Abort Mission")
+    chooseOption(4)
+    clearText()
+    if choice == 1:
+        skylightEntry()
+    elif choice == 2:
+        stairwellApproach()
+    elif choice == 3:
+        roofHop()
+    else:
+        abortMission()
+
+def parkingGarage():
+    tpg1 = "You move through the dark garage where sound and shadows hide danger."
+    typeWriter(tpg1)
+    time.sleep(.67)
+    print("\n")
+    print("Where Will You Go?")
+    print("   1. Shadow Move")
+    print("   2. Use Flashlight")
+    print("   3. Search Vehicles")
+    print("   4. Retreat")
+    chooseOption(4)
+    clearText()
+    if choice == 1:
+        shadowMove()
+    elif choice == 2:
+        useFlashlight()
+    elif choice == 3:
+        searchVehicles()
+    else:
+        retreat()
+
+def level_1_entry(): #######################temp commented out
+    tl1e1 = "You arrive outside the building where \033[1mhostages\033[0m are being held. "
+    tl1e2 = "Police sirens echo behind you as your team waits for your command.\n"
+    tl1e3 = "This is the moment where \033[1;32myou\033[32m decide how to enter the building\033[0m, knowing that your choice will affect how \033[1;31mdangerous\033[0m the mission becomes.\033[0m"
+    typeWriter(tl1e1) #tl1e means "text level 1 entry" text 1
+    time.sleep(.67)
+    typeWriter(tl1e2) #tl1e text 2
+    time.sleep(.90)
+    typeWriter(tl1e3) #tl1e text 3
+
+    ##
     time.sleep(1)
     print("\n")
     print("Where Will You Go?")
@@ -126,11 +415,17 @@ def level_1_entry():
     print("   2. Rooftop Rappel")
     print("   3. Parking Garage")
     chooseOption(3)
-    pause() #stopped here
+    if choice == 1:
+        frontLobby()
+    elif choice == 2:
+        rooftopRappel()
+    else:
+        parkingGarage()
+
 
 def startGame():
     pause()
-    time.sleep(1.5)
+    time.sleep(.75)
     clearText()
     level_1_entry()
 
@@ -159,6 +454,7 @@ while True:
             i += 1
             if i == 3:
                 print("This is intentional")
+                time.sleep(1)
             else:
                 pass
 
@@ -172,5 +468,4 @@ while True:
 
 print("Quitting...")
 sys.exit(0)
-
 quit()
