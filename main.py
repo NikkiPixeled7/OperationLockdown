@@ -1,12 +1,7 @@
 ############## Import ##############
 import random, time, sys, tkinter, os, shutil, platform
 from ASCIIArt import gameLogo
-# test push
-# test pull
 ############## (Reusable) Definitions ##############
-
-# Typewriter Effect
-
 
 #  How to use --->   print_centre("enter text here")
 def print_centre(s):
@@ -138,17 +133,6 @@ def startGame():
     time.sleep(1.5)
     clearText()
     level_1_entry()
-
-
-
-############## ASCII Art ##############
-
-
-############## Game Options ##############
-
-
-############## Test Things ##############
-
 
 ############## Main Loop ##############
 while True:
