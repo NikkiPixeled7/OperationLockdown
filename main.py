@@ -8,6 +8,7 @@ from ASCIIArt import gameLogo
 choice = 0
 winCounter = 0
 loseCounter = 0
+invalidChoice = 0
 
 ############## (Reusable) Definitions ##############
 
@@ -116,7 +117,10 @@ def chooseOption(numOfOpt):
             choice = int(choice)
 
         if choice == 0:
-            print("Invalid Choice, Please Try Again..")
+            clearText()
+            global invalidChoice
+            print("Invalid Choice, Please Try Again.. " + str(invalidChoice))
+            invalidChoice += 1
 
         print("\n\n")
     return choice
@@ -127,6 +131,7 @@ def chooseOption(numOfOpt):
 
 ### Level A (Front Lobby) ###
 def rushLobby():
+    clearText()
     trl1 = "You charge into the lobby head-on, risking a firefight."
     typeWriter(trl1)
     time.sleep(.67)
@@ -145,6 +150,7 @@ def rushLobby():
         holdLobby()
 
 def flashbangEntry():
+    clearText()
     tfe1 = "You throw a flashbang to stun enemies before moving."
     typeWriter(tfe1)
     time.sleep(.67)
@@ -163,6 +169,7 @@ def flashbangEntry():
         retreatAndRegroup()
 
 def droneRecon():
+    clearText()
     tdr1 = "You use a drone to scout the lobby for hostiles or hostages."
     typeWriter(tdr1)
     time.sleep(.67)
@@ -181,6 +188,7 @@ def droneRecon():
         reposition()
 
 def fallBack():
+    clearText()
     tfb1 = "You retreat to plan your next move, but taking too long allows the enemies to reinforce their positions. By the time you return, the lobby is heavily guarded, and your chance for a quick entry is lost."
     typeWriter(tfb1)
     time.sleep(.67)
@@ -191,6 +199,7 @@ def fallBack():
 ##### Level A1 ##
 
 def pushStairs():
+    clearText()
     tps1 = "Move up the stairs to reach upper floors."
     typeWriter(tps1)
     time.sleep(.67)
@@ -203,6 +212,7 @@ def pushStairs():
         breachObjective()
 
 def breachObjective():
+    clearText()
     tps1 = "You breach the objective room successfully, but the tension is high. If your timing is perfect, you defuse the bomb and complete the mission.\n\
     If not, a misstep triggers the explosives, ending the operation in failure. (33% Chance)"
     typeWriter(tps1)
@@ -218,6 +228,7 @@ def breachObjective():
         loseCounter += 1
 
 def clearSideRooms():
+    clearText()
     tcsr1 = "You spend too long searching the side rooms. While you were distracted, enemy reinforcements secure the main objective, leaving you no choice but to retreat. The mission is compromised."
     typeWriter(tcsr1)
     time.sleep(.67)
@@ -227,6 +238,7 @@ def clearSideRooms():
     loseCounter += 1
 
 def holdLobby():
+    clearText()
     thl1 = "You try to hold the lobby, but the enemies quickly flank your position. Overwhelmed, you’re forced to pull back, and the mission fails before you can reach the objective."
     typeWriter(thl1)
     time.sleep(.67)
@@ -238,6 +250,7 @@ def holdLobby():
 ##### Level A2 ##
 
 def advanceAfterFlash():
+    clearText()
     taaf1 = "You push forward too quickly, but the enemies recover faster than expected. You’re forced to retreat."
     typeWriter(taaf1)
     time.sleep(.67)
@@ -247,6 +260,7 @@ def advanceAfterFlash():
     loseCounter += 1
 
 def reloadAndWait():
+    clearText()
     traw1 = "Waiting gives the enemies time to regroup. Your advance is blocked, and the mission fails."
     typeWriter(traw1)
     time.sleep(.67)
@@ -256,6 +270,7 @@ def reloadAndWait():
     loseCounter += 1
 
 def retreatAndRegroup():
+    clearText()
     traw1 = "Pulling back takes too long, and the opportunity slips away. You’re forced to abort the mission."
     typeWriter(traw1)
     time.sleep(.67)
@@ -267,6 +282,7 @@ def retreatAndRegroup():
 ##### Level A3 ##
 
 def followIntel():
+    clearText()
     tfi1 = "You follow the intel carefully, avoid enemy patrols, and reach the objective safely. The mission is a success!"
     typeWriter(tfi1)
     time.sleep(.67)
@@ -276,6 +292,7 @@ def followIntel():
     winCounter += 1
 
 def ignoreIntel():
+    clearText()
     tit1 = "Without guidance, you stumble into enemy territory and must retreat. The operation ends here."
     typeWriter(tit1)
     time.sleep(.67)
@@ -285,6 +302,7 @@ def ignoreIntel():
     loseCounter += 1
 
 def reposition():
+    clearText()
     tr1 = "Repositioning wastes too much time, letting the enemies gain the advantage. You’re forced to abort the mission."
     typeWriter(tr1)
     time.sleep(.67)
@@ -305,6 +323,7 @@ def reposition():
 
 ### End of Level B, Start of Level C ###
 def gameIntro():
+    clearText()
     welcomeText = "\033[1;35mWelcome\033[0m To Operation Lockdown"
     width = 30
     centeredText = welcomeText.center(width)
@@ -322,7 +341,7 @@ def gameIntro():
     text = """\033[1;35mOperation Lockdown\033[0m is a text-based choose-your-own-adventure game inspired by the tactical gameplay of Rainbow Six Siege,\n\
 you will be taking on the role of an elite operator during a \033[1;35mhigh-risk \033[0mhostage rescue mission. \n \
 You will make choices on what happens next, be careful though since some  paths may lead to an \033[1;35mabrupt ending.\033[0m\n\
-There are many different endings, some \033[32mgood\033[0m and some \033[31mbad\033[0;1m. Have fun.\033[\n"""
+There are many different endings, some \033[32mgood\033[0m and some \033[31mbad\033[0;1m. Have fun.\033[0m\n"""
     sleep_time = 0.015
 
     for char in text:
@@ -335,6 +354,7 @@ There are many different endings, some \033[32mgood\033[0m and some \033[31mbad\
     print("\n\n")
 
 def frontLobby():
+    clearText()
     tfl1 = "You enter the lobby where enemies are waiting and alarms may trigger."
     typeWriter(tfl1) #text front lobby 1
     time.sleep(.67)
