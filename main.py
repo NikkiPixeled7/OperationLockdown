@@ -443,7 +443,7 @@ def silentTakedown():
     time.sleep(.67)
     print("\n")
     print("What Next?")
-    print("   1. 1 Try, 30% Chance Win")
+    print("   1. 1 Try, 35% Chance Win")
     print("   2. 4 Tries, 8% Chance per try")
     chooseOption(2)
     clearText()
@@ -460,7 +460,7 @@ def oneTry():
         global winCounter
         winCounter += 1
     else:
-        print("You \033[1;31mlost\033[0m the 50/50 \U0001F61E")
+        print("You \033[1;31mlost\033[0m the 35/65 \U0001F61E")
         global loseCounter
         loseCounter += 1
 
@@ -793,4 +793,5 @@ while True:
 # quit the game if no play again or start
 
 print("Quitting...")
+
 sys.exit(0)
