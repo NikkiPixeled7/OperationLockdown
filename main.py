@@ -442,7 +442,7 @@ def silentTakedown():
     typeWriter(tst1)
     time.sleep(.67)
     print("\n")
-    print("What Will You Do?")
+    print("What Next?")
     print("   1. 1 Try, 30% Chance Win")
     print("   2. 4 Tries, 8% Chance per try")
     chooseOption(2)
@@ -453,9 +453,9 @@ def silentTakedown():
         fourTries()
 
 def oneTry():
-    win = random.randint(0, 100)
-    if win > 50:
-        print("You win the 50/50, nice job!")
+    win = random.randint(1, 100)
+    if win <= 35:
+        print("You win the 35/65, nice job!")
         print(win)
         global winCounter
         winCounter += 1
@@ -511,6 +511,123 @@ def abortMission():
     loseCounter += 1
 
 ### End of Level B, Start of Level C ###
+
+
+## C1 #
+
+def shadowMove():
+    clearText()
+    tsm1 = ("You move silently between vehicles, but an enemy patrol catches movement in the dark.\n\
+You think you lost but there is the smallest chance of turnaround... (pick a number from 1 through 67)")
+    typeWriter(tsm1)
+    time.sleep(.67)
+    print("\n")
+    rep = 1 # repeat -> rep
+    while rep < 2:
+        shadowMoveGuess = int(input("\n(1-67)  >>> "))
+        if 1 <= shadowMoveGuess <= 67:
+            shadowMoveNum = random.randint(1, 67)
+            if shadowMoveGuess == shadowMoveNum:
+                print("Wow. You.. Actually... Won... Good Job!")
+                global winCounter
+                winCounter += 1
+                rep += 5
+            else:
+                print("You lost \U0001F61E")
+                global loseCounter
+                loseCounter += 1
+                rep += 5
+        else:
+            print("I said from 1-67, no more, no less..")
+
+
+## C2 #
+
+def useFlashlight():
+    clearText()
+    tsa1 = "You light the area to see better, but your position is immediately revealed."
+    typeWriter(tsa1)
+    time.sleep(.67)
+    endMsg()
+    global loseCounter
+    loseCounter += 1
+
+## C3 #
+
+def searchVehicles():
+    clearText()
+    tsa1 = "You search nearby vehicles and find useful supplies or intel."
+    typeWriter(tsa1)
+    time.sleep(.67)
+    print("\n")
+    print("What Next?")
+    print("   1. Use Supplies")
+    print("   2. Move Deeper")
+    print("   3. Wait And Plan")
+    chooseOption(3)
+    clearText()
+    if choice == 1:
+        useSupplies()
+    elif choice == 2:
+        moveDeeper()
+    else:
+        waitAndPlan()
+
+def useSupplies():
+    clearText()
+    tus1 = "You equip the gear you found and move forward with confidence. Using the supplies to your advantage,\n\
+you avoid enemy patrols and successfully secure the objective. Mission accomplished."
+    typeWriter(tus1)
+    time.sleep(.67)
+    print("\n")
+    global winCounter
+    winCounter += 1
+
+def moveDeeper():
+    clearText()
+    tmd1 = "You push deeper into the garage, but the noise echoes through the structure.\n\
+Enemy patrols close in, forcing you to abort the mission."
+    typeWriter(tmd1)
+    time.sleep(.67)
+    print("\n")
+    endMsg()
+    global loseCounter
+    loseCounter += 1
+
+def waitAndPlan():
+    clearText()
+    twap1 = "Waiting too long gives the enemies time to reposition and secure the area.\n\
+Your chance to move forward is gone, and the mission ends."
+    typeWriter(twap1)
+    time.sleep(.67)
+    print("\n")
+    endMsg()
+    global loseCounter
+    loseCounter += 1
+
+## C4 #
+
+def retreat():
+    clearText()
+    tsa1 = "You fall back to rethink your approach and spot a safer entry route."
+    typeWriter(tsa1)
+    time.sleep(.67)
+    print("\n")
+    print("What Next?")
+    print("   1. Side Entrance")
+    print("   2. Hold Position")
+    print("   3. Reroute")
+    chooseOption(3)
+    clearText()
+    if choice == 1:
+        sideEntrance()
+    elif choice == 2:
+        holdPosition()
+    else:
+        reroute()
+
+### End of Level C ###
+
 def gameIntro():
     clearText()
     welcomeText = "\033[1;35mWelcome\033[0m To Operation Lockdown"
@@ -677,4 +794,3 @@ while True:
 
 print("Quitting...")
 sys.exit(0)
-quit()
