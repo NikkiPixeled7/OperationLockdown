@@ -1,6 +1,6 @@
 ############## Import ##############
 import random, time, sys, tkinter, os, shutil, platform
-from ASCIIArt import gameLogo
+from ASCIIArt import gameLogo, mazeGame
 
 
 ############## Global Variables ##############
@@ -9,12 +9,38 @@ choice = 0
 winCounter = 0
 loseCounter = 0
 invalidChoice = 0
+introSkipCounter = 0
+textSkipCounter = 0
 
 ############## (Reusable) Definitions ##############
 
+def playAgain():
+    while True:
+        ynInput = str(input("\nWould you like to play again? " + "\U00002705 " + " Y" + \
+                            " / " + "\U0000274C " + " N\n"))
+        if ynInput == 'y' or ynInput == 'Y':
+            clearText()
+            return
+        elif ynInput == 'n' or ynInput == 'N':
+            clearText()
+            for _ in range(3):
+                print("Quitting")
+                time.sleep(0.25)
+                clearText()
+                time.sleep(0.25)
+
+            print("This is intentional")
+            time.sleep(1)
+            print("Quitting...")
+            sys.exit(0)
+        elif ynInput != 'y' and ynInput != 'Y' and ynInput != 'N' and ynInput != 'n':
+            print("Type Y or N to reply: ")
+        else:
+            print("Why is this here?")
+
 ## Typewriter
 def typeWriter(text):
-    sleep_time = 0.02
+    sleep_time = 0.015
 
     for char in text:
         sys.stdout.write(char)
@@ -36,7 +62,17 @@ def endMsg():
     else:
         print("\nThe mission ends here. Don’t give up!")
 
-
+def skipIntro():
+    skip = str(input("\nWould you like to skip intro? (y/n): "))
+    if skip == 'y' or skip == 'Y':
+        time.sleep(.2)
+        global textSkipCounter
+        textSkipCounter += 5
+        clearText()
+        startGame()
+    elif skip == 'n' or skip == 'N':
+        time.sleep(.2)
+        gameIntro()
 
 def clearText():
     print(platform.system())
@@ -48,54 +84,6 @@ def clearText():
 
 def pause():
     input("\033[1mPress \033[32mEnter\033[0;1;39m To Continue\033[0m\n")
-
-
-# How to Use Animated Text Func
-"""
-Animated Text Func (use this, textInput = input("Example Text: \n"))
-                            speed = ...
-                            length = ...
-                            load_animation(textInput, speed, length)
-"""
-
-
-def load_animation(load_str, speed, length):
-    str_len = len(load_str)
-
-    animation = "|/-\\"
-    anicount = 0
-
-    count_time = 0
-
-    i = 0
-
-    while count_time != length:
-        time.sleep(speed)
-
-        load_str_list = list(load_str)
-
-        x = ord(load_str_list[i])
-
-
-        if x != 32 and x != 46:
-            if x > 90:
-                y = x - 32
-            else:
-                y = x + 32
-            load_str_list[i] = chr(y)
-    res = ''
-    for j in range(str_len):
-        res = + load_str_list[j]
-
-    sys.stdout.write("\r" + res + animation[anicount])
-    sys.stdout.flush()
-
-    load_str = res
-
-    anicount = (anicount + 1) % 4
-    i = (i + 1) % str_len
-    count_time = + 1
-
 
 if os.name == "nt":
     pass
@@ -206,13 +194,39 @@ def reloadAndWait():
 
 def retreatAndRegroup():
     clearText()
-    traw1 = "Pulling back takes too long, and the opportunity slips away. You’re forced to abort the mission."
-    typeWriter(traw1)
+    trar1 = ("You fall back to regroup and rethink your approach. The area is confusing and tight, forcing you to navigate carefully.\n\
+You are the ¥ symbol and can move one square at a time using W, A, S, D. Find your way to the X to successfully regroup and continue.\n\
+You get 3 Tries")
+    typeWriter(trar1)
     time.sleep(.67)
     print("\n")
-    endMsg()
-    global loseCounter
-    loseCounter += 1
+    mazeGame()
+    valid_routes = ["SSSSDDDWWDDDSSDDDDWWWWDW", "ssssdddwwdddssddddwwwwdw", "SSSSSSSDDWDDDDDDDDDDWWWWWWAW", "sssssssddwddddddddddwwwwwwaw", "SSSSSSSDDWDDDDDDDDDDSDDDDDWWWWWWWAAAAAAW", "sssssssddwddddddddddsdddddwwwwwwwaaaaaaw"]
+    mazeWin = "SSSSDDDWWDDDSSDDDDWWWWDW"
+    mazeWin1 = "ssssdddwwdddssddddwwwwdw"
+    mazeWin2 = "SSSSSSSDDWDDDDDDDDDDWWWWWWAW"
+    mazeWin21 = "sssssssddwddddddddddwwwwwwaw"
+    mazeWin3 = "SSSSSSSDDWDDDDDDDDDDSDDDDDWWWWWWWAAAAAAW"
+    mazeWin31 = "sssssssddwddddddddddsdddddwwwwwwwaaaaaaw"
+    t = 1
+    while t < 4:
+        mazeInput = str(input("Be Careful With Your Inputs\n>>> "))
+        if mazeInput in valid_routes:
+            print("You successfully regroup and escape the area with a solid plan. The mission is completed successfully.\n")
+            global winCounter
+            winCounter += 1
+            break
+        else:
+            t += 1
+            if t >= 4:
+                pass
+            else:
+                print("That route didn’t work. Regroup and try again while you still have time.\n")
+
+        if t >= 4:
+            print("You fail to regroup in time. Confusion spreads, the enemies gain control, and the mission ends.\n")
+            global loseCounter
+            loseCounter += 1
 
 ##### Level A3 ##
 
@@ -523,21 +537,25 @@ You think you lost but there is the smallest chance of turnaround... (pick a num
     print("\n")
     rep = 1 # repeat -> rep
     while rep < 2:
-        shadowMoveGuess = int(input("\n(1-67)  >>> "))
-        if 1 <= shadowMoveGuess <= 67:
-            shadowMoveNum = random.randint(1, 67)
-            if shadowMoveGuess == shadowMoveNum:
-                print("Wow. You.. Actually... Won... Good Job!")
-                global winCounter
-                winCounter += 1
-                rep += 5
+        shadowMoveInput = input("\n(1-67)  >>> ")
+        if shadowMoveInput.isdigit():
+            shadowMoveGuess = int(shadowMoveInput)
+            if 1 <= shadowMoveGuess <= 67:
+                shadowMoveNum = random.randint(1, 67)
+                if shadowMoveGuess == shadowMoveNum:
+                    print("Wow. You.. Actually... Won... Good Job!")
+                    global winCounter
+                    winCounter += 1
+                    rep += 5
+                else:
+                    print("You lost \U0001F61E")
+                    global loseCounter
+                    loseCounter += 1
+                    rep += 5
             else:
-                print("You lost \U0001F61E")
-                global loseCounter
-                loseCounter += 1
-                rep += 5
+                print("I said from 1-67, no more, no less..")
         else:
-            print("I said from 1-67, no more, no less..")
+           print("Invalid Input. No Letters!")
 
 
 ## C2 #
@@ -668,6 +686,8 @@ def gameIntro():
     print("\n")
     time.sleep(.25)
     print("I Hope You Are Ready\033[1;31m Mr. " + (name) + "\033[0m.\n")
+    global introSkipCounter
+    introSkipCounter += 100
 
     pause()
     clearText()
@@ -735,7 +755,7 @@ def parkingGarage():
     typeWriter(tpg1)
     time.sleep(.67)
     print("\n")
-    print("Where Will You Go?")
+    print("What Will You Do?")
     print("   1. Shadow Move")
     print("   2. Use Flashlight")
     print("   3. Search Vehicles")
@@ -752,16 +772,22 @@ def parkingGarage():
         retreat()
 
 def level_1_entry(): #######################temp commented out
-    tl1e1 = "You arrive outside the building where \033[1mhostages\033[0m are being held. "
-    tl1e2 = "Police sirens echo behind you as your team waits for your command.\n"
-    tl1e3 = "This is the moment where \033[1;32myou\033[32m decide how to enter the building\033[0m, knowing that your choice will affect how \033[1;31mdangerous\033[0m the mission becomes.\033[0m"
-    typeWriter(tl1e1) #tl1e means "text level 1 entry" text 1
-    time.sleep(.67)
-    typeWriter(tl1e2) #tl1e text 2
-    time.sleep(.90)
-    typeWriter(tl1e3) #tl1e text 3
+    if textSkipCounter < 3:
+        tl1e1 = "You arrive outside the building where \033[1mhostages\033[0m are being held. "
+        tl1e2 = "Police sirens echo behind you as your team waits for your command.\n"
+        tl1e3 = "This is the moment where \033[1;32myou\033[32m decide how to enter the building\033[0m, knowing that your choice will affect how \033[1;31mdangerous\033[0m the mission becomes.\033[0m"
+        typeWriter(tl1e1)  # tl1e means "text level 1 entry" text 1
+        time.sleep(.16)
+        typeWriter(tl1e2)  # tl1e text 2
+        time.sleep(.225)
+        typeWriter(tl1e3)  # tl1e text 3
+    else:
+        print("You arrive outside the building where \033[1mhostages\033[0m are being held.\
+Police sirens echo behind you as your team waits for your command.\n\
+This is the moment where \033[1;32myou\033[32m decide how to enter the building\033[0m, knowing that your choice will affect how \033[1;31mdangerous\033[0m the mission becomes.\033[0m")
 
-    time.sleep(1)
+
+    time.sleep(.25)
     print("\n")
     print("Where Will You Go?")
     print("   1. Front Lobby")
@@ -785,39 +811,9 @@ def startGame():
 ############## Main Loop ##############
 while True:
     # start game function
-    gameIntro()
-
-    startGame()
-
-
-    ######### play again function
-    ynInput = input("\nWould you like to play again? " + "\U00002705 " + " Y" + \
-                    " / " + "\U0000274C " + " N\n")
-    if ynInput == 'y' or ynInput == 'Y':
+    if introSkipCounter <= 0:
         gameIntro()
-        clearText()
-    elif ynInput == 'n' or ynInput == 'N':
-        clearText()
-        i = 0
-        while i < 4:
-            print("Quitting")
-            time.sleep(0.25)
-            clearText()
-            time.sleep(0.25)
-            i += 1
-            if i == 3:
-                print("This is intentional")
-                time.sleep(1)
-            else:
-                pass
-
-        break
-    elif ynInput != 'y' and ynInput != 'Y' and ynInput != 'N' and ynInput != 'n':
-        print("Type Y or N to reply: ")
     else:
-        print("Why is this here?")
-
-# quit the game if no play again or start
-
-print("Quitting...")
-sys.exit(0)
+        skipIntro()
+    startGame()
+    playAgain()
