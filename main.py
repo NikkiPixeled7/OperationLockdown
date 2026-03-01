@@ -336,8 +336,8 @@ def skylightEntry():
 
 def dropIn():
     clearText()
-    tse1 = "You drop into the building through a skylight."
-    typeWriter(tse1)
+    tdi1 = "You drop into the building through a skylight."
+    typeWriter(tdi1)
     time.sleep(.67)
     print("\n")
     print("What Will You Do?")
@@ -614,17 +614,46 @@ def retreat():
     time.sleep(.67)
     print("\n")
     print("What Next?")
-    print("   1. Side Entrance")
+    print("   1. Reroute")
     print("   2. Hold Position")
-    print("   3. Reroute")
+    print("   3. Side Entrance")
     chooseOption(3)
     clearText()
     if choice == 1:
-        sideEntrance()
+        reroute()
     elif choice == 2:
         holdPosition()
     else:
-        reroute()
+        sideEntrance()
+
+def sideEntrance():
+    clearText()
+    tse12 = "You discover a side entrance connected to the garage and slip inside undetected. The enemies never see you coming, and you secure the objective successfully."
+    typeWriter(tse12)
+    time.sleep(.67)
+    print("\n")
+    global winCounter
+    winCounter += 1
+
+def holdPosition():
+    clearText()
+    thp1 = "Holding your position gives the enemies time to regroup and sweep the area. You’re discovered, and the mission ends."
+    typeWriter(thp1)
+    time.sleep(.67)
+    print("\n")
+    endMsg()
+    global loseCounter
+    loseCounter += 1
+
+def reroute():
+    clearText()
+    trr1 = "You attempt to reroute through another section of the garage, but lose valuable time. Enemy patrols block your path, forcing you to abort the mission."
+    typeWriter(trr1)
+    time.sleep(.67)
+    print("\n")
+    endMsg()
+    global loseCounter
+    loseCounter += 1
 
 ### End of Level C ###
 
@@ -733,7 +762,6 @@ def level_1_entry(): #######################temp commented out
     time.sleep(.90)
     typeWriter(tl1e3) #tl1e text 3
 
-    ##
     time.sleep(1)
     print("\n")
     print("Where Will You Go?")
@@ -793,5 +821,4 @@ while True:
 # quit the game if no play again or start
 
 print("Quitting...")
-
 sys.exit(0)
