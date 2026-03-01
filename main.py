@@ -129,6 +129,123 @@ def chooseOption(numOfOpt):
 
 ############## (Single Use/ + Retry Use) Definitions ##############
 
+##### Level A1 ##
+
+def breachObjective():
+    clearText()
+    tps1 = "You breach the objective room successfully, but the tension is high. If your timing is perfect, you defuse the bomb and complete the mission.\n\
+    If not, a misstep triggers the explosives, ending the operation in failure. (33% Chance)"
+    typeWriter(tps1)
+    time.sleep(.67)
+    breachGuess = random.randint(1,3)
+    if breachGuess == 2:
+        print("\nGood Job You Win!!!")
+        global winCounter
+        winCounter += 1
+    elif breachGuess == 3 or breachGuess == 1:
+        endMsg()
+        global loseCounter
+        loseCounter += 1
+
+def pushStairs():
+    clearText()
+    tps1 = "Move up the stairs to reach upper floors."
+    typeWriter(tps1)
+    time.sleep(.67)
+    print("\n")
+    print("What Next? (What Will You Pick \U0001F914)")
+    print("   1. Breach Objective")
+    chooseOption(1)
+    clearText()
+    if choice == 1:
+        breachObjective()
+
+def clearSideRooms():
+    clearText()
+    tcsr1 = "You spend too long searching the side rooms. While you were distracted, enemy reinforcements secure the main objective, leaving you no choice but to retreat. The mission is compromised."
+    typeWriter(tcsr1)
+    time.sleep(.67)
+    print("\n")
+    endMsg()
+    global loseCounter
+    loseCounter += 1
+
+def holdLobby():
+    clearText()
+    thl1 = "You try to hold the lobby, but the enemies quickly flank your position. Overwhelmed, you’re forced to pull back, and the mission fails before you can reach the objective."
+    typeWriter(thl1)
+    time.sleep(.67)
+    print("\n")
+    endMsg()
+    global loseCounter
+    loseCounter += 1
+
+
+
+##### Level A2 ##
+
+def advanceAfterFlash():
+    clearText()
+    taaf1 = "You push forward too quickly, but the enemies recover faster than expected. You’re forced to retreat."
+    typeWriter(taaf1)
+    time.sleep(.67)
+    print("\n")
+    endMsg()
+    global loseCounter
+    loseCounter += 1
+
+def reloadAndWait():
+    clearText()
+    traw1 = "Waiting gives the enemies time to regroup. Your advance is blocked, and the mission fails."
+    typeWriter(traw1)
+    time.sleep(.67)
+    print("\n")
+    endMsg()
+    global loseCounter
+    loseCounter += 1
+
+def retreatAndRegroup():
+    clearText()
+    traw1 = "Pulling back takes too long, and the opportunity slips away. You’re forced to abort the mission."
+    typeWriter(traw1)
+    time.sleep(.67)
+    print("\n")
+    endMsg()
+    global loseCounter
+    loseCounter += 1
+
+##### Level A3 ##
+
+def followIntel():
+    clearText()
+    tfi1 = "You follow the intel carefully, avoid enemy patrols, and reach the objective safely. The mission is a success!"
+    typeWriter(tfi1)
+    time.sleep(.67)
+    print("\n")
+    print("Nice Job, You Won!")
+    global winCounter
+    winCounter += 1
+
+def ignoreIntel():
+    clearText()
+    tit1 = "Without guidance, you stumble into enemy territory and must retreat. The operation ends here."
+    typeWriter(tit1)
+    time.sleep(.67)
+    print("\n")
+    endMsg()
+    global loseCounter
+    loseCounter += 1
+
+def reposition():
+    clearText()
+    tr1 = "Repositioning wastes too much time, letting the enemies gain the advantage. You’re forced to abort the mission."
+    typeWriter(tr1)
+    time.sleep(.67)
+    print("\n")
+    endMsg()
+    global loseCounter
+    loseCounter += 1
+
 ### Level A (Front Lobby) ###
 def rushLobby():
     clearText()
@@ -196,159 +313,9 @@ def fallBack():
     global loseCounter
     loseCounter += 1
 
-##### Level A1 ##
-
-def pushStairs():
-    clearText()
-    tps1 = "Move up the stairs to reach upper floors."
-    typeWriter(tps1)
-    time.sleep(.67)
-    print("\n")
-    print("What Next? (What Will You Pick \U0001F914)")
-    print("   1. Breach Objective")
-    chooseOption(1)
-    clearText()
-    if choice == 1:
-        breachObjective()
-
-def breachObjective():
-    clearText()
-    tps1 = "You breach the objective room successfully, but the tension is high. If your timing is perfect, you defuse the bomb and complete the mission.\n\
-    If not, a misstep triggers the explosives, ending the operation in failure. (33% Chance)"
-    typeWriter(tps1)
-    time.sleep(.67)
-    breachGuess = random.randint(1,3)
-    if breachGuess == 2:
-        print("\nGood Job You Win!!!")
-        global winCounter
-        winCounter += 1
-    elif breachGuess == 3 or breachGuess == 1:
-        endMsg()
-        global loseCounter
-        loseCounter += 1
-
-def clearSideRooms():
-    clearText()
-    tcsr1 = "You spend too long searching the side rooms. While you were distracted, enemy reinforcements secure the main objective, leaving you no choice but to retreat. The mission is compromised."
-    typeWriter(tcsr1)
-    time.sleep(.67)
-    print("\n")
-    endMsg()
-    global loseCounter
-    loseCounter += 1
-
-def holdLobby():
-    clearText()
-    thl1 = "You try to hold the lobby, but the enemies quickly flank your position. Overwhelmed, you’re forced to pull back, and the mission fails before you can reach the objective."
-    typeWriter(thl1)
-    time.sleep(.67)
-    print("\n")
-    endMsg()
-    global loseCounter
-    loseCounter += 1
-
-##### Level A2 ##
-
-def advanceAfterFlash():
-    clearText()
-    taaf1 = "You push forward too quickly, but the enemies recover faster than expected. You’re forced to retreat."
-    typeWriter(taaf1)
-    time.sleep(.67)
-    print("\n")
-    endMsg()
-    global loseCounter
-    loseCounter += 1
-
-def reloadAndWait():
-    clearText()
-    traw1 = "Waiting gives the enemies time to regroup. Your advance is blocked, and the mission fails."
-    typeWriter(traw1)
-    time.sleep(.67)
-    print("\n")
-    endMsg()
-    global loseCounter
-    loseCounter += 1
-
-def retreatAndRegroup():
-    clearText()
-    traw1 = "Pulling back takes too long, and the opportunity slips away. You’re forced to abort the mission."
-    typeWriter(traw1)
-    time.sleep(.67)
-    print("\n")
-    endMsg()
-    global loseCounter
-    loseCounter += 1
-
-##### Level A3 ##
-
-def followIntel():
-    clearText()
-    tfi1 = "You follow the intel carefully, avoid enemy patrols, and reach the objective safely. The mission is a success!"
-    typeWriter(tfi1)
-    time.sleep(.67)
-    print("\n")
-    print("Nice Job, You Won!")
-    global winCounter
-    winCounter += 1
-
-def ignoreIntel():
-    clearText()
-    tit1 = "Without guidance, you stumble into enemy territory and must retreat. The operation ends here."
-    typeWriter(tit1)
-    time.sleep(.67)
-    print("\n")
-    endMsg()
-    global loseCounter
-    loseCounter += 1
-
-def reposition():
-    clearText()
-    tr1 = "Repositioning wastes too much time, letting the enemies gain the advantage. You’re forced to abort the mission."
-    typeWriter(tr1)
-    time.sleep(.67)
-    print("\n")
-    endMsg()
-    global loseCounter
-    loseCounter += 1
-
 ### End of Level A, Start of Level B ###
 
-def skylightEntry():
-    clearText()
-    tse1 = "You drop into the building through a skylight."
-    typeWriter(tse1)
-    time.sleep(.67)
-    print("\n")
-    print("What Will You Do?")
-    print("   1. Wait Backup")
-    print("   2. Scan Room")
-    print("   3. Drop In")
-    chooseOption(3)
-    clearText()
-    if choice == 1:
-        waitBackup()
-    elif choice == 2:
-        scanRoom()
-    else:
-        dropIn()
-
 ## B1 Level #
-
-def dropIn():
-    clearText()
-    tdi1 = "You drop into the building through a skylight."
-    typeWriter(tdi1)
-    time.sleep(.67)
-    print("\n")
-    print("What Will You Do?")
-    print("   1. Enter Objective")
-    print("   2. Enter Through Breach")
-    chooseOption(1)
-    clearText()
-    if choice == 1:
-        enterObjective()
-    else:
-        enterThroughBreach()
 
 def scanRoom():
     clearText()
@@ -392,7 +359,70 @@ With the room secured and the objective under control, the mission is a success.
     global winCounter
     winCounter += 1
 
+def dropIn():
+    clearText()
+    tdi1 = "You drop into the building through a skylight."
+    typeWriter(tdi1)
+    time.sleep(.67)
+    print("\n")
+    print("What Will You Do?")
+    print("   1. Enter Objective")
+    print("   2. Enter Through Breach")
+    chooseOption(1)
+    clearText()
+    if choice == 1:
+        enterObjective()
+    else:
+        enterThroughBreach()
+
 ##### Level B2 ##
+
+def oneTry():
+    win = random.randint(1, 100)
+    if win <= 35:
+        print("You win the 35/65, nice job!")
+        print(win)
+        global winCounter
+        winCounter += 1
+    else:
+        print("You \033[1;31mlost\033[0m the 35/65 \U0001F61E")
+        global loseCounter
+        loseCounter += 1
+
+def fourTries():
+    j = 0
+    l = 0
+    while j < 4:
+        win2 = random.randint(1, 100)
+        if win2 >= 1 and win2 <= 8:
+            print("You \033[1;32mwin\033[0m the 8% chance \U0001F92F")
+            global winCounter
+            winCounter += 1
+            l = 67 #hehe 67
+            break
+        else:
+            j += 1
+
+        if j >= 4:
+            print("You lost \U0001F61E")
+            global loseCounter
+            loseCounter += 1
+
+def silentTakedown():
+    clearText()
+    tst1 = "You take the stairs quietly to avoid detection."
+    typeWriter(tst1)
+    time.sleep(.67)
+    print("\n")
+    print("What Next?")
+    print("   1. 1 Try, 35% Chance Win")
+    print("   2. 4 Tries, 8% Chance per try")
+    chooseOption(2)
+    clearText()
+    if choice == 1:
+        oneTry()
+    else:
+        fourTries()
 
 def stairwellApproach():
     clearText()
@@ -436,56 +466,6 @@ Enemies lock down the area, forcing the mission to end."
     global loseCounter
     loseCounter += 1
 
-def silentTakedown():
-    clearText()
-    tst1 = "You take the stairs quietly to avoid detection."
-    typeWriter(tst1)
-    time.sleep(.67)
-    print("\n")
-    print("What Next?")
-    print("   1. 1 Try, 35% Chance Win")
-    print("   2. 4 Tries, 8% Chance per try")
-    chooseOption(2)
-    clearText()
-    if choice == 1:
-        oneTry()
-    else:
-        fourTries()
-
-def oneTry():
-    win = random.randint(1, 100)
-    if win <= 35:
-        print("You win the 35/65, nice job!")
-        print(win)
-        global winCounter
-        winCounter += 1
-    else:
-        print("You \033[1;31mlost\033[0m the 35/65 \U0001F61E")
-        global loseCounter
-        loseCounter += 1
-
-def fourTries():
-    j = 0
-    l = 0
-    while j < 4:
-        win2 = random.randint(1, 100)
-        if win2 >= 1 and win2 <= 8:
-            print("You \033[1;32mwin\033[0m the 8% chance \U0001F92F")
-            global winCounter
-            winCounter += 1
-            l = 67 #hehe 67
-            break
-        else:
-            j += 1
-
-        if j >= 4:
-            print("You lost \U0001F61E")
-            global loseCounter
-            loseCounter += 1
-
-
-
-
 ##### Level B3 ##
 
 def roofHop():
@@ -509,6 +489,25 @@ def abortMission():
     endMsg()
     global loseCounter
     loseCounter += 1
+
+def skylightEntry():
+    clearText()
+    tse1 = "You drop into the building through a skylight."
+    typeWriter(tse1)
+    time.sleep(.67)
+    print("\n")
+    print("What Will You Do?")
+    print("   1. Wait Backup")
+    print("   2. Scan Room")
+    print("   3. Drop In")
+    chooseOption(3)
+    clearText()
+    if choice == 1:
+        waitBackup()
+    elif choice == 2:
+        scanRoom()
+    else:
+        dropIn()
 
 ### End of Level B, Start of Level C ###
 
@@ -554,25 +553,6 @@ def useFlashlight():
 
 ## C3 #
 
-def searchVehicles():
-    clearText()
-    tsa1 = "You search nearby vehicles and find useful supplies or intel."
-    typeWriter(tsa1)
-    time.sleep(.67)
-    print("\n")
-    print("What Next?")
-    print("   1. Use Supplies")
-    print("   2. Move Deeper")
-    print("   3. Wait And Plan")
-    chooseOption(3)
-    clearText()
-    if choice == 1:
-        useSupplies()
-    elif choice == 2:
-        moveDeeper()
-    else:
-        waitAndPlan()
-
 def useSupplies():
     clearText()
     tus1 = "You equip the gear you found and move forward with confidence. Using the supplies to your advantage,\n\
@@ -605,26 +585,26 @@ Your chance to move forward is gone, and the mission ends."
     global loseCounter
     loseCounter += 1
 
-## C4 #
-
-def retreat():
+def searchVehicles():
     clearText()
-    tsa1 = "You fall back to rethink your approach and spot a safer entry route."
+    tsa1 = "You search nearby vehicles and find useful supplies or intel."
     typeWriter(tsa1)
     time.sleep(.67)
     print("\n")
     print("What Next?")
-    print("   1. Reroute")
-    print("   2. Hold Position")
-    print("   3. Side Entrance")
+    print("   1. Use Supplies")
+    print("   2. Move Deeper")
+    print("   3. Wait And Plan")
     chooseOption(3)
     clearText()
     if choice == 1:
-        reroute()
+        useSupplies()
     elif choice == 2:
-        holdPosition()
+        moveDeeper()
     else:
-        sideEntrance()
+        waitAndPlan()
+
+## C4 #
 
 def sideEntrance():
     clearText()
@@ -654,6 +634,25 @@ def reroute():
     endMsg()
     global loseCounter
     loseCounter += 1
+
+def retreat():
+    clearText()
+    tsa1 = "You fall back to rethink your approach and spot a safer entry route."
+    typeWriter(tsa1)
+    time.sleep(.67)
+    print("\n")
+    print("What Next?")
+    print("   1. Reroute")
+    print("   2. Hold Position")
+    print("   3. Side Entrance")
+    chooseOption(3)
+    clearText()
+    if choice == 1:
+        reroute()
+    elif choice == 2:
+        holdPosition()
+    else:
+        sideEntrance()
 
 ### End of Level C ###
 
