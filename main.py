@@ -1,5 +1,5 @@
 ############## Import ##############
-import random, time, sys, tkinter, os, shutil, platform
+import random, time, sys, os, shutil, platform
 from ASCIIArt import gameLogo, mazeGame
 
 
@@ -484,13 +484,58 @@ Enemies lock down the area, forcing the mission to end."
 
 def roofHop():
     clearText()
-    trh1 = "You move across the rooftops, but enemy lookouts spot your movement. The element of surprise is lost, and the mission is aborted."
-    typeWriter(trh1)
     time.sleep(.67)
     print("\n")
-    endMsg()
-    global loseCounter
-    loseCounter += 1
+    print("""
+    Wind howls across the rooftop as your boots hit concrete.
+Your drone feed glitches—then freezes on a locked access panel.
+A distorted signal pulses across the screen, repeating in fragments.
+
+The door won’t open unless you understand the message.
+One mistake, and the defenders will know exactly where you are.
+(Hint.. Binary)
+    """)
+    time.sleep(.67)
+    print("""
+“\nTwo lights flick, one blank.
+A pause.
+Blank, then three blinks.”
+
+The door accepts:
+• what is seen
+• what is counted
+• what is translated
+
+What is the code?
+""")
+    o = 0
+    while o < 5:
+    codeGuessInput = input("\n>>> ")
+    if codeGuessInput.isdigit():
+        codeGuess = int(codeGuessInput)
+        if codeGuess == '607':
+            print("The anticipation...")
+            time.sleep(.5)
+            print("Did you get it?")
+            time.sleep(.5)
+            print("You did it! Good Job!!! The code binary code was 0110 0000 0111\n\
+        and the mission is successful")
+            global winCounter
+            winCounter += 1
+            break
+        else:
+            print("The anticipation...")
+            time.sleep(.5)
+            print("Did you get it?")
+            time.sleep(.5)
+            print("Incorrect code entered. Enemy forces respond—mission failed.\n")
+            time.sleep(.1)
+            endMsg()
+            global loseCounter
+            loseCounter += 1
+    else:
+        print("Please Enter a number")
+
 
 ##### Level B4 ##
 
