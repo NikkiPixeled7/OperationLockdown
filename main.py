@@ -1,6 +1,6 @@
 ############## Import ##############
 import random, time, sys, os, shutil, platform
-from ASCIIArt import gameLogo, mazeGame, shopAndQuit
+from ASCIIArt import gameLogo, mazeGame, shopAndQuit, sadFace, sadFace2, simpleSadFace, crown
 
 
 ############## Global Variables ##############
@@ -55,12 +55,16 @@ def endMsg():
     msgNum = random.randint(1,4)
     if msgNum == 1:
         print("\nMission failed… better luck next time!")
+        sadFace()
     elif msgNum == 2:
         print("\nYou didn’t make it this time.")
+        sadFace2()
     elif msgNum == 4:
         print("\nOperation unsuccessful. Try again.")
+        simpleSadFace()
     else:
         print("\nThe mission ends here. Don’t give up!")
+        simpleSadFace()
 
 def skipIntro():
     skip = str(input("\nWould you like to skip intro? (y/n): "))
@@ -130,6 +134,7 @@ def breachObjective():
         print("\nGood Job You Win!!!")
         global winCounter
         winCounter += 1
+        crown()
     elif breachGuess == 3 or breachGuess == 1:
         endMsg()
         global loseCounter
@@ -215,6 +220,7 @@ You get 3 Tries")
             print("You successfully regroup and escape the area with a solid plan. The mission is completed successfully.\n")
             global winCounter
             winCounter += 1
+            crown()
             break
         else:
             t += 1
@@ -239,6 +245,7 @@ def followIntel():
     print("Nice Job, You Won!")
     global winCounter
     winCounter += 1
+    crown()
 
 def ignoreIntel():
     clearText()
@@ -361,6 +368,7 @@ Everything comes down to timing, awareness, and a bit of luck."
     print("Nice Job, You Won!")
     global winCounter
     winCounter += 1
+    crown()
 
 def enterThroughBreach():
     clearText()
@@ -369,9 +377,9 @@ With the room secured and the objective under control, the mission is a success.
     typeWriter(tsr1)
     time.sleep(.67)
     print("\n")
-    endMsg()
     global winCounter
     winCounter += 1
+    crown()
 
 def dropIn():
     clearText()
@@ -382,7 +390,7 @@ def dropIn():
     print("What Will You Do?")
     print("   1. Enter Objective")
     print("   2. Enter Through Breach")
-    chooseOption(1)
+    chooseOption(2)
     clearText()
     if choice == 1:
         enterObjective()
@@ -398,6 +406,7 @@ def oneTry():
         print(win)
         global winCounter
         winCounter += 1
+        crown()
     else:
         print("You \033[1;31mlost\033[0m the 35/65 \U0001F61E")
         global loseCounter
@@ -412,10 +421,12 @@ def fourTries():
             print("You \033[1;32mwin\033[0m the 8% chance \U0001F92F")
             global winCounter
             winCounter += 1
+            crown()
             l = 67 #hehe 67
             break
         else:
             j += 1
+            print(win2)
 
         if j >= 4:
             print("You lost \U0001F61E")
@@ -429,8 +440,8 @@ def silentTakedown():
     time.sleep(.67)
     print("\n")
     print("What Next?")
-    print("   1. 1 Try, 35% Chance Win")
-    print("   2. 4 Tries, 8% Chance per try")
+    print("   1. 1 Try, 35% Chance Win (1-35 in 1-100)")
+    print("   2. 4 Tries, 8% Chance per try (1-8 in 1-100)")
     chooseOption(2)
     clearText()
     if choice == 1:
@@ -525,6 +536,7 @@ What is the code?
                     and the mission is successful")
                     global winCounter
                     winCounter += 1
+                    crown()
                     break
                 elif codeGuess != correctAnswer:
                     clearText()
@@ -600,6 +612,7 @@ You think you lost but there is the smallest chance of turnaround... (pick a num
                     print("Wow. You.. Actually... Won... Good Job!")
                     global winCounter
                     winCounter += 1
+                    crown()
                     rep += 5
                 else:
                     print("You lost \U0001F61E")
@@ -634,6 +647,7 @@ you avoid enemy patrols and successfully secure the objective. Mission accomplis
     print("\n")
     global winCounter
     winCounter += 1
+    crown()
 
 def moveDeeper():
     clearText()
@@ -686,6 +700,7 @@ def sideEntrance():
     print("\n")
     global winCounter
     winCounter += 1
+    crown()
 
 def holdPosition():
     clearText()
@@ -893,4 +908,3 @@ while True:
         skipIntro()
     startGame()
     playAgain()
-
