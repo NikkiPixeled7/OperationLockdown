@@ -6,7 +6,7 @@ from ASCIIArt import gameLogo, mazeGame, shopAndQuit, sadFace, sadFace2, simpleS
 ############## Global Variables ##############
 
 choice = 0
-winCounter = 0
+winCounter = 10
 loseCounter = 0
 invalidChoice = 0
 introSkipCounter = 0
@@ -845,7 +845,50 @@ def quitNow():
     sys.exit(0)
 
 def shop():
-    print("The Shop is still under construction... please try again later..")
+    if winCounter >= 10 and loseCounter >= 10:
+        print("""
+          ▄φφφφφφφφφφφφφSHOPφφφφφφφφφφφφ▄  
+         █                               █ 
+        ▐▌ 1. Double Luck        5. Exit ▐▌
+        █▌ 2. Special Message            ▐█
+        █▌ 3. Extra Life                 ▐█
+        █▌ 4. Enter Secret Code          ▐█
+        ▐▌                 Wins: """ + str(winCounter) + """      ▐▌
+         █                 Losses: """ + str(loseCounter) + """    █ 
+          ▀φφφφφφφφφφφφφφφφφφφφφφφφφφφφφ▀""")
+    elif winCounter < 10 and loseCounter < 10:
+        print("""
+          ▄φφφφφφφφφφφφφSHOPφφφφφφφφφφφφ▄  
+         █                               █ 
+        ▐▌ 1. Double Luck        5. Exit ▐▌
+        █▌ 2. Special Message            ▐█
+        █▌ 3. Extra Life                 ▐█
+        █▌ 4. Enter Secret Code          ▐█
+        ▐▌                 Wins: """ + str(winCounter) + """       ▐▌
+         █                 Losses: """ + str(loseCounter) + """     █ 
+          ▀φφφφφφφφφφφφφφφφφφφφφφφφφφφφφ▀""")
+    elif winCounter >= 10:
+        print("""
+          ▄φφφφφφφφφφφφφSHOPφφφφφφφφφφφφ▄  
+         █                               █ 
+        ▐▌ 1. Double Luck        5. Exit ▐▌
+        █▌ 2. Special Message            ▐█
+        █▌ 3. Extra Life                 ▐█
+        █▌ 4. Enter Secret Code          ▐█
+        ▐▌                 Wins: """ + str(winCounter) + """      ▐▌
+         █                 Losses: """ + str(loseCounter) + """     █ 
+          ▀φφφφφφφφφφφφφφφφφφφφφφφφφφφφφ▀""")
+    else:
+        print("""
+          ▄φφφφφφφφφφφφφSHOPφφφφφφφφφφφφ▄  
+         █                               █ 
+        ▐▌ 1. Double Luck        5. Exit ▐▌
+        █▌ 2. Special Message            ▐█
+        █▌ 3. Extra Life                 ▐█
+        █▌ 4. Enter Secret Code          ▐█
+        ▐▌                 Wins: """ + str(winCounter) + """       ▐▌
+         █                 Losses: """ + str(loseCounter) + """    █ 
+          ▀φφφφφφφφφφφφφφφφφφφφφφφφφφφφφ▀""")
     # Idea, get ascii and make a gui non-interactable but use chooseOption() to pick things
 
 def funFact():
@@ -901,6 +944,8 @@ def startGame():
 
 ############## Main Loop ##############
 while True:
+    shop()
+    time.sleep(10000)
     # start game function
     if introSkipCounter <= 0:
         gameIntro()
