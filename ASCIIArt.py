@@ -39,5 +39,7 @@ def shopAndQuit():
 ║  4. Shop             ║
 ║                      ║
 ║  5. Quit Now         ║
+║                      ║
+║  6. Fun Fact         ║
 ╚══════════════════════╝
     """)
