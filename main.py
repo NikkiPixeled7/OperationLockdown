@@ -748,8 +748,6 @@ There are many different endings, some \033[32mgood\033[0m and some \033[31mbad\
         sys.stdout.flush()
         time.sleep(sleep_time)
 
-    print("Win Counter: " + str(winCounter))
-    print("Lose Counter: " + str(loseCounter))
     print("\n\n")
 
 def frontLobby():
@@ -829,8 +827,10 @@ def level_1_entry(): #######################temp commented out
     else:
         print("You arrive outside the building where \033[1mhostages\033[0m are being held.\
 Police sirens echo behind you as your team waits for your command.\n\
-This is the moment where \033[1;32myou\033[32m decide how to enter the building\033[0m, knowing that your choice will affect how \033[1;31mdangerous\033[0m the mission becomes.\033[0m")
+This is the moment where \033[1;32myou\033[32m decide how to enter the building\033[0m, knowing that your choice will affect how \033[1;31mdangerous\033[0m the mission becomes.\033[0m\n")
 
+    print("Win Counter: " + str(winCounter))
+    print("Lose Counter: " + str(loseCounter))
 
     time.sleep(.25)
     print("\n")
