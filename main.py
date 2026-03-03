@@ -6,7 +6,7 @@ from ASCIIArt import gameLogo, mazeGame, shopAndQuit, sadFace, sadFace2, simpleS
 ############## Global Variables ##############
 
 choice = 0
-winCounter = 10
+winCounter = 0
 loseCounter = 0
 invalidChoice = 0
 introSkipCounter = 0
@@ -109,7 +109,6 @@ def chooseOption(numOfOpt):
             choice = int(choice)
 
         if choice == 0:
-            clearText()
             global invalidChoice
             print("Invalid Choice, Please Try Again.. " + str(invalidChoice))
             invalidChoice += 1
@@ -844,8 +843,55 @@ def quitNow():
     time.sleep(1.5)
     sys.exit(0)
 
+def exitShop():
+    playAgain()
+
+def secretCodeVar():
+    clearText()
+    returnText = "return"
+    answer = str(input("What is the secret code? ('return' to return)\n\
+>>> "))
+    if answer == 'wwssadadba':
+        print("Nice, Secret Developer Cheat Code")
+        print("+15 Wins")
+        global winCounter
+        winCounter += 15
+        time.sleep(1)
+        playAgain()
+    elif answer == returnText:
+        enterSecretCode()
+    else:
+        print("Wrong Code, Try Again..")
+
+def enterSecretCode():
+    clearText()
+    print("\033[1mWhy are you here?\033[0m")
+    print("1. I am going to try the \033[1;31mSecret Code\033[0m.")
+    print("2. Sorry, wrong place (return)")
+    chooseOption(2)
+    if choice == 1:
+        secretCodeVar()
+    else:
+        shop()
+
+def doubleLuck():
+    print("Under Construction...")
+    time.sleep(1.5)
+    pass
+
+def specialMessage():
+    print("Under Construction...")
+    time.sleep(1.5)
+    pass
+
+def extraLife():
+    print("Under Construction...")
+    time.sleep(1.5)
+    pass
+
 def shop():
     if winCounter >= 10 and loseCounter >= 10:
+        clearText()
         print("""
           ▄φφφφφφφφφφφφφSHOPφφφφφφφφφφφφ▄  
          █                               █ 
@@ -857,6 +903,7 @@ def shop():
          █                 Losses: """ + str(loseCounter) + """    █ 
           ▀φφφφφφφφφφφφφφφφφφφφφφφφφφφφφ▀""")
     elif winCounter < 10 and loseCounter < 10:
+        clearText()
         print("""
           ▄φφφφφφφφφφφφφSHOPφφφφφφφφφφφφ▄  
          █                               █ 
@@ -868,6 +915,7 @@ def shop():
          █                 Losses: """ + str(loseCounter) + """     █ 
           ▀φφφφφφφφφφφφφφφφφφφφφφφφφφφφφ▀""")
     elif winCounter >= 10:
+        clearText()
         print("""
           ▄φφφφφφφφφφφφφSHOPφφφφφφφφφφφφ▄  
          █                               █ 
@@ -879,6 +927,7 @@ def shop():
          █                 Losses: """ + str(loseCounter) + """     █ 
           ▀φφφφφφφφφφφφφφφφφφφφφφφφφφφφφ▀""")
     else:
+        clearText()
         print("""
           ▄φφφφφφφφφφφφφSHOPφφφφφφφφφφφφ▄  
          █                               █ 
@@ -889,6 +938,17 @@ def shop():
         ▐▌                 Wins: """ + str(winCounter) + """       ▐▌
          █                 Losses: """ + str(loseCounter) + """    █ 
           ▀φφφφφφφφφφφφφφφφφφφφφφφφφφφφφ▀""")
+    chooseOption(5)
+    if choice == 1:
+        doubleLuck()
+    elif choice == 2:
+        specialMessage()
+    elif choice == 3:
+        extraLife()
+    elif choice == 4:
+        enterSecretCode()
+    else:
+        exitShop()
     # Idea, get ascii and make a gui non-interactable but use chooseOption() to pick things
 
 def funFact():
@@ -944,8 +1004,6 @@ def startGame():
 
 ############## Main Loop ##############
 while True:
-    shop()
-    time.sleep(10000)
     # start game function
     if introSkipCounter <= 0:
         gameIntro()
