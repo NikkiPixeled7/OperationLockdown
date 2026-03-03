@@ -497,8 +497,8 @@ One mistake, and the defenders will know exactly where you are.
     """)
     time.sleep(.67)
     print("""
-“\nTwo lights flick, one blank.
-A pause.
+“\nBlank, Two lights flick, one blank.
+A pause of blanks.
 Blank, then three blinks.”
 
 The door accepts:
@@ -893,3 +893,4 @@ while True:
         skipIntro()
     startGame()
     playAgain()
+
