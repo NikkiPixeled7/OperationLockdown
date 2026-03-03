@@ -1,6 +1,6 @@
 ############## Import ##############
 import random, time, sys, os, shutil, platform
-from ASCIIArt import gameLogo, mazeGame
+from ASCIIArt import gameLogo, mazeGame, shopAndQuit
 
 
 ############## Global Variables ##############
@@ -99,7 +99,7 @@ def chooseOption(numOfOpt):
     while choice < 1 or choice > numOfOpt:
         print("\nChoose A Number 1 to " + str(numOfOpt) + "\n>>> ", end='')
         choice = input()
-        if choice != '1' and choice != '2' and choice != '3' and choice != '4':
+        if choice != '1' and choice != '2' and choice != '3' and choice != '4' and choice != '5' and choice != '6' and choice != '7' and choice != '8' and choice != '9': #just incase i need more options for the shop
             choice = 0
         else:
             choice = int(choice)
@@ -510,31 +510,40 @@ What is the code?
 """)
     o = 0
     while o < 5:
-    codeGuessInput = input("\n>>> ")
-    if codeGuessInput.isdigit():
-        codeGuess = int(codeGuessInput)
-        if codeGuess == '607':
-            print("The anticipation...")
-            time.sleep(.5)
-            print("Did you get it?")
-            time.sleep(.5)
-            print("You did it! Good Job!!! The code binary code was 0110 0000 0111\n\
-        and the mission is successful")
-            global winCounter
-            winCounter += 1
-            break
+        codeGuessInput = input("\n>>> ")
+        if codeGuessInput.isdigit():
+            codeGuess = int(codeGuessInput)
+            correctAnswer = 607
+            if 0 <= codeGuess <= 999:
+                if codeGuess == correctAnswer:
+                    clearText()
+                    print("The anticipation...\n")
+                    time.sleep(2)
+                    print("Did you get it?\n")
+                    time.sleep(2)
+                    print("You did it! Good Job!!! The code binary code was 0110 0000 0111\n\
+                    and the mission is successful")
+                    global winCounter
+                    winCounter += 1
+                    break
+                elif codeGuess != correctAnswer:
+                    clearText()
+                    print("The anticipation...")
+                    time.sleep(2)
+                    print("Did you get it?")
+                    time.sleep(2)
+                    print("Incorrect code entered. Enemy forces respond—mission failed.\n")
+                    time.sleep(.33)
+                    endMsg()
+                    global loseCounter
+                    loseCounter += 1
+                    break
+                else:
+                    print("testing.. uh what..?")
+            else:
+                print("Hint, range from 0-999")
         else:
-            print("The anticipation...")
-            time.sleep(.5)
-            print("Did you get it?")
-            time.sleep(.5)
-            print("Incorrect code entered. Enemy forces respond—mission failed.\n")
-            time.sleep(.1)
-            endMsg()
-            global loseCounter
-            loseCounter += 1
-    else:
-        print("Please Enter a number")
+            print("Please Enter a number")
 
 
 ##### Level B4 ##
@@ -814,6 +823,16 @@ def parkingGarage():
     else:
         retreat()
 
+def quitNow():
+    clearText()
+    print("Quitting...")
+    time.sleep(1.5)
+    sys.exit(0)
+
+def shop():
+    print("The Shop is still under construction... please try again later..")
+    # Idea, get ascii and make a gui non-interactable but use chooseOption() to pick things
+
 def level_1_entry(): #######################temp commented out
     if textSkipCounter < 3:
         tl1e1 = "You arrive outside the building where \033[1mhostages\033[0m are being held. "
@@ -829,8 +848,8 @@ def level_1_entry(): #######################temp commented out
 Police sirens echo behind you as your team waits for your command.\n\
 This is the moment where \033[1;32myou\033[32m decide how to enter the building\033[0m, knowing that your choice will affect how \033[1;31mdangerous\033[0m the mission becomes.\033[0m\n")
 
-    print("Win Counter: " + str(winCounter))
-    print("Lose Counter: " + str(loseCounter))
+    print("\n\n\033[1;32mWin\033[0m Counter: " + str(winCounter))
+    print("\033[1;31mLose\033[0m Counter: " + str(loseCounter))
 
     time.sleep(.25)
     print("\n")
@@ -838,13 +857,18 @@ This is the moment where \033[1;32myou\033[32m decide how to enter the building\
     print("   1. Front Lobby")
     print("   2. Rooftop Rappel")
     print("   3. Parking Garage")
-    chooseOption(3)
+    shopAndQuit()
+    chooseOption(5)
     if choice == 1:
         frontLobby()
     elif choice == 2:
         rooftopRappel()
-    else:
+    elif choice == 3:
         parkingGarage()
+    elif choice == 4:
+        shop()
+    else:
+        quitNow()
 
 
 def startGame():
