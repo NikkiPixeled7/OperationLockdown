@@ -833,6 +833,11 @@ def shop():
     print("The Shop is still under construction... please try again later..")
     # Idea, get ascii and make a gui non-interactable but use chooseOption() to pick things
 
+def funFact():
+    clearText()
+    print("\033[1;32mFun Fact\033[0;1m, This Game \033[1;35m34+\033[0;1m Possible Game Endings\033[0m\n")
+    time.sleep(1.5)
+
 def level_1_entry(): #######################temp commented out
     if textSkipCounter < 3:
         tl1e1 = "You arrive outside the building where \033[1mhostages\033[0m are being held. "
@@ -858,7 +863,7 @@ This is the moment where \033[1;32myou\033[32m decide how to enter the building\
     print("   2. Rooftop Rappel")
     print("   3. Parking Garage")
     shopAndQuit()
-    chooseOption(5)
+    chooseOption(6)
     if choice == 1:
         frontLobby()
     elif choice == 2:
@@ -867,8 +872,10 @@ This is the moment where \033[1;32myou\033[32m decide how to enter the building\
         parkingGarage()
     elif choice == 4:
         shop()
-    else:
+    elif choice == 5:
         quitNow()
+    else:
+        funFact()
 
 
 def startGame():
