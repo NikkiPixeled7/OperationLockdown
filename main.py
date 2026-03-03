@@ -860,6 +860,10 @@ def secretCodeVar():
         playAgain()
     elif answer == returnText:
         enterSecretCode()
+    elif answer == 'give1000wins':
+        print("Uhhh, Okay..? +1000 Wins")
+        global winCounter
+        winCounter += 1000
     else:
         print("Wrong Code, Try Again..")
 
@@ -1011,3 +1015,4 @@ while True:
         skipIntro()
     startGame()
     playAgain()
+
