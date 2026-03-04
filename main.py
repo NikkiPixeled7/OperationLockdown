@@ -1297,7 +1297,7 @@ def exitShop():
     playAgain()
 
 def secretCodeVar():
-    global winCounter
+    global winCounter, loseCounter
     clearText()
     returnText = "return"
     answer = str(input("What is the secret code? ('return' to return)\n\
@@ -1311,8 +1311,9 @@ def secretCodeVar():
     elif answer == returnText:
         enterSecretCode()
     elif answer == 'give1000wins':
-        print("Uhhh, Okay..? +1000 Wins")
+        print("Uhhh, Okay..? +1000 Wins & Losses")
         winCounter += 1000
+        loseCounter += 1000
     else:
         print("Wrong Code, Try Again..")
 
