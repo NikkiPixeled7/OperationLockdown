@@ -11,6 +11,8 @@ loseCounter = 0
 invalidChoice = 0
 introSkipCounter = 0
 textSkipCounter = 0
+doubleLuckCounter = 0
+extraLifeCounter = 0
 
 ############## (Reusable) Definitions ##############
 
@@ -55,15 +57,19 @@ def endMsg():
     msgNum = random.randint(1,4)
     if msgNum == 1:
         print("\nMission failed… better luck next time!")
+        time.sleep(1.5)
         sadFace()
     elif msgNum == 2:
         print("\nYou didn’t make it this time.")
+        time.sleep(1.5)
         sadFace2()
-    elif msgNum == 4:
+    elif msgNum == 3:
         print("\nOperation unsuccessful. Try again.")
+        time.sleep(1.5)
         simpleSadFace()
     else:
         print("\nThe mission ends here. Don’t give up!")
+        time.sleep(1.5)
         simpleSadFace()
 
 def skipIntro():
@@ -124,20 +130,52 @@ def chooseOption(numOfOpt):
 
 def breachObjective():
     clearText()
+    global doubleLuckCounter, extraLifeCounter
     tps1 = "You breach the objective room successfully, but the tension is high. If your timing is perfect, you defuse the bomb and complete the mission.\n\
     If not, a misstep triggers the explosives, ending the operation in failure. (33% Chance)"
     typeWriter(tps1)
     time.sleep(.67)
     breachGuess = random.randint(1,3)
-    if breachGuess == 2:
-        print("\nGood Job You Win!!!")
-        global winCounter
-        winCounter += 1
-        crown()
-    elif breachGuess == 3 or breachGuess == 1:
-        endMsg()
-        global loseCounter
-        loseCounter += 1
+    if doubleLuckCounter >= 1:
+        print("Double Luck used! Odds are doubled for this round!")
+        time.sleep(2)
+        if breachGuess == 1 or breachGuess == 2:
+            print("\nGood Job You Win!!!")
+            global winCounter
+            winCounter += 1
+            crown()
+            doubleLuckCounter -= 1
+        elif breachGuess == 3:
+            if extraLifeCounter >= 1:
+                endMsg()
+                global loseCounter
+                print("You lost, but an extra life saved you!")
+                print("+0 Losses")
+                doubleLuckCounter -= 1
+                extraLifeCounter -= 1
+            else:
+                endMsg()
+                global loseCounter
+                loseCounter += 1
+                doubleLuckCounter -= 1
+
+    else:
+        if breachGuess == 2:
+            print("\nGood Job You Win!!!")
+            global winCounter
+            winCounter += 1
+            crown()
+        elif breachGuess == 3 or breachGuess == 1:
+            if extraLifeCounter >= 1:
+                endMsg()
+                global loseCounter
+                print("You lost, but an extra life saved you!")
+                print("+0 Losses")
+                extraLifeCounter -= 1
+            else:
+                endMsg()
+                global loseCounter
+                loseCounter += 1
 
 def pushStairs():
     clearText()
@@ -158,9 +196,17 @@ def clearSideRooms():
     typeWriter(tcsr1)
     time.sleep(.67)
     print("\n")
-    endMsg()
-    global loseCounter
-    loseCounter += 1
+    global extraLifeCounter
+    if extraLifeCounter >= 1:
+        print("You lost, but an extra life saved you!")
+        print("+0 Losses")
+        time.sleep(1.33)
+        endMsg()
+        extraLifeCounter -= 1
+    else:
+        endMsg()
+        global loseCounter
+        loseCounter += 1
 
 def holdLobby():
     clearText()
@@ -168,9 +214,17 @@ def holdLobby():
     typeWriter(thl1)
     time.sleep(.67)
     print("\n")
-    endMsg()
-    global loseCounter
-    loseCounter += 1
+    global extraLifeCounter
+    if extraLifeCounter >= 1:
+        print("You lost, but an extra life saved you!")
+        print("+0 Losses")
+        time.sleep(1.33)
+        endMsg()
+        extraLifeCounter -= 1
+    else:
+        endMsg()
+        global loseCounter
+        loseCounter += 1
 
 
 
@@ -182,9 +236,17 @@ def advanceAfterFlash():
     typeWriter(taaf1)
     time.sleep(.67)
     print("\n")
-    endMsg()
-    global loseCounter
-    loseCounter += 1
+    global extraLifeCounter
+    if extraLifeCounter >= 1:
+        print("You lost, but an extra life saved you!")
+        print("+0 Losses")
+        time.sleep(1.33)
+        endMsg()
+        extraLifeCounter -= 1
+    else:
+        endMsg()
+        global loseCounter
+        loseCounter += 1
 
 def reloadAndWait():
     clearText()
@@ -192,9 +254,17 @@ def reloadAndWait():
     typeWriter(traw1)
     time.sleep(.67)
     print("\n")
-    endMsg()
-    global loseCounter
-    loseCounter += 1
+    global extraLifeCounter
+    if extraLifeCounter >= 1:
+        print("You lost, but an extra life saved you!")
+        print("+0 Losses")
+        time.sleep(1.33)
+        endMsg()
+        extraLifeCounter -= 1
+    else:
+        endMsg()
+        global loseCounter
+        loseCounter += 1
 
 def retreatAndRegroup():
     clearText()
@@ -230,8 +300,17 @@ You get 3 Tries")
 
         if t >= 4:
             print("You fail to regroup in time. Confusion spreads, the enemies gain control, and the mission ends.\n")
-            global loseCounter
-            loseCounter += 1
+            global extraLifeCounter
+            if extraLifeCounter >= 1:
+                print("You lost, but an extra life saved you!")
+                print("+0 Losses")
+                time.sleep(1.33)
+                endMsg()
+                extraLifeCounter -= 1
+            else:
+                endMsg()
+                global loseCounter
+                loseCounter += 1
 
 ##### Level A3 ##
 
@@ -252,9 +331,17 @@ def ignoreIntel():
     typeWriter(tit1)
     time.sleep(.67)
     print("\n")
-    endMsg()
-    global loseCounter
-    loseCounter += 1
+    global extraLifeCounter
+    if extraLifeCounter >= 1:
+        print("You lost, but an extra life saved you!")
+        print("+0 Losses")
+        time.sleep(1.33)
+        endMsg()
+        extraLifeCounter -= 1
+    else:
+        endMsg()
+        global loseCounter
+        loseCounter += 1
 
 def reposition():
     clearText()
@@ -262,9 +349,17 @@ def reposition():
     typeWriter(tr1)
     time.sleep(.67)
     print("\n")
-    endMsg()
-    global loseCounter
-    loseCounter += 1
+    global extraLifeCounter
+    if extraLifeCounter >= 1:
+        print("You lost, but an extra life saved you!")
+        print("+0 Losses")
+        time.sleep(1.33)
+        endMsg()
+        extraLifeCounter -= 1
+    else:
+        endMsg()
+        global loseCounter
+        loseCounter += 1
 
 ### Level A (Front Lobby) ###
 def rushLobby():
@@ -330,8 +425,15 @@ def fallBack():
     typeWriter(tfb1)
     time.sleep(.67)
     print("\n")
-    global loseCounter
-    loseCounter += 1
+    global extraLifeCounter
+    if extraLifeCounter >= 1:
+        print("You lost, but an extra life saved you!")
+        print("+0 Losses")
+        time.sleep(1.33)
+        extraLifeCounter -= 1
+    else:
+        global loseCounter
+        loseCounter += 1
 
 ### End of Level A, Start of Level B ###
 
@@ -343,9 +445,17 @@ def scanRoom():
     typeWriter(tsr1)
     time.sleep(.67)
     print("\n")
-    endMsg()
-    global loseCounter
-    loseCounter += 1
+    global extraLifeCounter
+    if extraLifeCounter >= 1:
+        print("You lost, but an extra life saved you!")
+        print("+0 Losses")
+        time.sleep(1.33)
+        endMsg()
+        extraLifeCounter -= 1
+    else:
+        endMsg()
+        global loseCounter
+        loseCounter += 1
 
 def waitBackup():
     clearText()
@@ -353,9 +463,17 @@ def waitBackup():
     typeWriter(twb1)
     time.sleep(.67)
     print("\n")
-    endMsg()
-    global loseCounter
-    loseCounter += 1
+    global extraLifeCounter
+    if extraLifeCounter >= 1:
+        print("You lost, but an extra life saved you!")
+        print("+0 Losses")
+        time.sleep(1.33)
+        endMsg()
+        extraLifeCounter -= 1
+    else:
+        endMsg()
+        global loseCounter
+        loseCounter += 1
 
 def enterObjective():
     clearText()
@@ -364,22 +482,133 @@ Everything comes down to timing, awareness, and a bit of luck."
     typeWriter(tfi1)
     time.sleep(.67)
     print("\n")
-    print("Nice Job, You Won!")
+    print("Nice Job, You Won! *Number 2 is the fun path, go for it next*")
     global winCounter
     winCounter += 1
     crown()
+
+## Door Replies (next def) ##
+
+def door1():
+    clearText()
+    print("You push it open… and find a dimly lit room filled with mirrors reflecting your every move. ❌ Wrong choice — nothing here leads onward.")
+    time.sleep(.33)
+    global extraLifeCounter
+    if extraLifeCounter >= 1:
+        print("You lost, but an extra life saved you!")
+        print("+0 Losses")
+        time.sleep(1.33)
+        extraLifeCounter -= 1
+    else:
+        global loseCounter
+        loseCounter += 1
+
+def door2():
+    clearText()
+    print("The door swings to a corridor that ends abruptly in darkness. ❌ Wrong choice — this path goes nowhere.")
+    time.sleep(.33)
+    global extraLifeCounter
+    if extraLifeCounter >= 1:
+        print("You lost, but an extra life saved you!")
+        print("+0 Losses")
+        time.sleep(1.33)
+        extraLifeCounter -= 1
+    else:
+        global loseCounter
+        loseCounter += 1
+
+def door3():
+    clearText()
+    print("You enter, but the floor feels unstable. ❌ Wrong choice — retreat is your only option.")
+    time.sleep(.33)
+    global extraLifeCounter
+    if extraLifeCounter >= 1:
+        print("You lost, but an extra life saved you!")
+        print("+0 Losses")
+        time.sleep(1.33)
+        extraLifeCounter -= 1
+    else:
+        global loseCounter
+        loseCounter += 1
+
+def door4():
+    clearText()
+    print("Inside, a whisper promises guidance, but when you step forward, it vanishes. ❌ Wrong choice — you’re back where you started.")
+    time.sleep(.33)
+    global extraLifeCounter
+    if extraLifeCounter >= 1:
+        print("You lost, but an extra life saved you!")
+        print("+0 Losses")
+        time.sleep(1.33)
+        extraLifeCounter -= 1
+    else:
+        global loseCounter
+        loseCounter += 1
+
+def door5():
+    clearText()
+    print("The door opens smoothly, revealing a faintly glowing path that seems to call you forward. ✅ Correct choice — And the mission is a success!\n")
+    crown()
+    time.sleep(.33)
+    global winCounter
+    winCounter += 1
+
+def whyDoor():
+    clearText()
+    global loseCounter
+    print("Why would you even choose this, you know what.... Just for that you get 7 losses, I dont care")
+    time.sleep(1)
+    print("You deserve this.. Extra lives wont save you.")
+    print("losses: " +str(loseCounter))
+    time.sleep(1)
+    print("VV")
+    time.sleep(1)
+    loseCounter += 7
+    print("losses: " +str(loseCounter))
+    time.sleep(1)
+    print("\nHaha")
+    time.sleep(1)
+    endMsg()
+
+## End of Door Replies ##
 
 def enterThroughBreach():
     clearText()
     tsr1 = "You breach the opening at the perfect moment and catch the enemies off guard.\n\
-With the room secured and the objective under control, the mission is a success."
+With the room secured, you spot \033[1;31m5\033[0m door with a plaque says the following: "
     typeWriter(tsr1)
     time.sleep(.67)
     print("\n")
-    global winCounter
-    winCounter += 1
-    crown()
+    print("""A distorted voice echoes:
 
+“Only one path leads to survival.”
+
+You must choose wisely. """)
+    print("\n\n")
+    print("""\033[1mDoor 1:\033[0m “The treasure is not behind me. At least one of the next two doors lies.”
+
+\033[1mDoor 2:\033[0m “Door 1 is lying. The treasure is behind me or Door 5.”
+
+\033[1mDoor 3:\033[0m “Door 2 is telling the truth, but the treasure is not behind me.”
+
+\033[1mDoor 4:\033[0m “Exactly one of these five doors hides the treasure, and it is not me.”
+
+\033[1mDoor 5:\033[0m “Door 3 lies, and the treasure is not behind Door 2.
+
+\033[1mDoor 6:\033[0m "I am not in this riddle and im scared (dont do it.. it fails) (seriously)" """)
+    chooseOption(6)
+    if choice == 1:
+        door1()
+    elif choice == 2:
+        door2()
+    elif choice == 3:
+        door3()
+    elif choice == 4:
+        door4()
+    elif choice == 5:
+        door5()
+    else:
+        whyDoor()
 def dropIn():
     clearText()
     tdi1 = "You drop into the building through a skylight."
@@ -400,37 +629,103 @@ def dropIn():
 
 def oneTry():
     win = random.randint(1, 100)
-    if win <= 35:
-        print("You win the 35/65, nice job!")
-        print(win)
-        global winCounter
-        winCounter += 1
-        crown()
+    global doubleLuckCounter, extraLifeCounter
+    if doubleLuckCounter >= 1:
+        if win <= 70:
+            print("Double Luck Used!")
+            print("You win the 70/30, nice job!")
+            print(win)
+            global winCounter
+            winCounter += 1
+            doubleLuckCounter -= 1
+            crown()
+        else:
+            if extraLifeCounter >= 1:
+                print("An Extra Life Has Saved You!")
+                print("You \033[1;31mlost\033[0m the 70/30 \U0001F61E")
+                print("+0 Loss")
+                doubleLuckCounter -= 1
+                extraLifeCounter -= 1
+            else:
+                print("You \033[1;31mlost\033[0m the 70/30 \U0001F61E")
+                global loseCounter
+                loseCounter += 1
+                doubleLuckCounter -= 1
+
     else:
-        print("You \033[1;31mlost\033[0m the 35/65 \U0001F61E")
-        global loseCounter
-        loseCounter += 1
+        if win <= 35:
+            print("You win the 35/65, nice job!")
+            print(win)
+            global winCounter
+            winCounter += 1
+            crown()
+        else:
+            if extraLifeCounter >= 1:
+                print("An Extra Life Has Saved You!")
+                print("You \033[1;31mlost\033[0m the 35/65 \U0001F61E")
+                print("+0 Loss")
+                extraLifeCounter -= 1
+            else:
+                print("You \033[1;31mlost\033[0m the 35/65 \U0001F61E")
+                global loseCounter
+                loseCounter += 1
 
 def fourTries():
     j = 0
     l = 0
-    while j < 4:
-        win2 = random.randint(1, 100)
-        if win2 >= 1 and win2 <= 8:
-            print("You \033[1;32mwin\033[0m the 8% chance \U0001F92F")
-            global winCounter
-            winCounter += 1
-            crown()
-            l = 67 #hehe 67
-            break
-        else:
-            j += 1
-            print(win2)
+    global doubleLuckCounter, extraLifeCounter
+    if doubleLuckCounter >= 1:
+        print("Double Luck Used!")
+        while j < 4:
+            win2 = random.randint(1, 100)
+            if win2 >= 1 and win2 <= 16:
+                print("You \033[1;32mwin\033[0m the 16% chance \U0001F92F")
+                global winCounter
+                winCounter += 1
+                crown()
+                l = 67  # hehe 67
+                doubleLuckCounter -= 1
+                break
+            else:
+                j += 1
+                print(win2)
 
-        if j >= 4:
-            print("You lost \U0001F61E")
-            global loseCounter
-            loseCounter += 1
+            if j >= 4:
+                if extraLifeCounter >= 1:
+                    print("An Extra Life Has Saved You!")
+                    print("You lost \U0001F61E")
+                    print("+0 Loss")
+                    doubleLuckCounter -= 1
+                    extraLifeCounter -= 1
+                else:
+                    print("You lost \U0001F61E")
+                    global loseCounter
+                    loseCounter += 1
+                    doubleLuckCounter -= 1
+    else:
+        while j < 4:
+            win2 = random.randint(1, 100)
+            if 1 <= win2 <= 8:
+                print("You \033[1;32mwin\033[0m the 8% chance \U0001F92F")
+                global winCounter
+                winCounter += 1
+                crown()
+                l = 67  # hehe 67
+                break
+            else:
+                j += 1
+                print(win2)
+
+            if j >= 4:
+                if extraLifeCounter >= 1:
+                    print("An Extra Life Has Saved You!")
+                    print("You lost \U0001F61E")
+                    print("+0 Loss")
+                    extraLifeCounter -= 1
+                else:
+                    print("You lost \U0001F61E")
+                    global loseCounter
+                    loseCounter += 1
 
 def silentTakedown():
     clearText()
@@ -475,9 +770,17 @@ The enemies secure the building, and the operation is called off."
     typeWriter(tfb21)
     time.sleep(.67)
     print("\n")
-    endMsg()
-    global loseCounter
-    loseCounter += 1
+    global extraLifeCounter
+    if extraLifeCounter >= 1:
+        print("You lost, but an extra life saved you!")
+        print("+0 Losses")
+        time.sleep(1.33)
+        endMsg()
+        extraLifeCounter -= 1
+    else:
+        endMsg()
+        global loseCounter
+        loseCounter += 1
 
 def avoidPatrol():
     clearText()
@@ -486,13 +789,22 @@ Enemies lock down the area, forcing the mission to end."
     typeWriter(tap1)
     time.sleep(.67)
     print("\n")
-    endMsg()
-    global loseCounter
-    loseCounter += 1
+    global extraLifeCounter
+    if extraLifeCounter >= 1:
+        print("You lost, but an extra life saved you!")
+        print("+0 Losses")
+        time.sleep(1.33)
+        endMsg()
+        extraLifeCounter -= 1
+    else:
+        endMsg()
+        global loseCounter
+        loseCounter += 1
 
 ##### Level B3 ##
 
 def roofHop():
+    global extraLifeCounter
     clearText()
     time.sleep(.67)
     print("\n")
@@ -538,17 +850,30 @@ What is the code?
                     crown()
                     break
                 elif codeGuess != correctAnswer:
-                    clearText()
-                    print("The anticipation...")
-                    time.sleep(2)
-                    print("Did you get it?")
-                    time.sleep(2)
-                    print("Incorrect code entered. Enemy forces respond—mission failed.\n")
-                    time.sleep(.33)
-                    endMsg()
-                    global loseCounter
-                    loseCounter += 1
-                    break
+                    if extraLifeCounter >= 1:
+                        clearText()
+                        print("The anticipation...")
+                        time.sleep(2)
+                        print("Did you get it?")
+                        time.sleep(2)
+                        print("Incorrect code entered. Enemy forces respond—mission failed.\n")
+                        time.sleep(.33)
+                        print("An Extra Life Saved You!")
+                        print("+0 Losses")
+                        extraLifeCounter -= 1
+                        break
+                    else:
+                        clearText()
+                        print("The anticipation...")
+                        time.sleep(2)
+                        print("Did you get it?")
+                        time.sleep(2)
+                        print("Incorrect code entered. Enemy forces respond—mission failed.\n")
+                        time.sleep(.33)
+                        endMsg()
+                        global loseCounter
+                        loseCounter += 1
+                        break
                 else:
                     print("testing.. uh what..?")
             else:
@@ -565,9 +890,17 @@ def abortMission():
     typeWriter(tam1)
     time.sleep(.67)
     print("\n")
-    endMsg()
-    global loseCounter
-    loseCounter += 1
+    global extraLifeCounter
+    if extraLifeCounter >= 1:
+        print("You lost, but an extra life saved you!")
+        print("+0 Losses")
+        time.sleep(1.33)
+        endMsg()
+        extraLifeCounter -= 1
+    else:
+        endMsg()
+        global loseCounter
+        loseCounter += 1
 
 def skylightEntry():
     clearText()
@@ -601,27 +934,95 @@ You think you lost but there is the smallest chance of turnaround... (pick a num
     time.sleep(.67)
     print("\n")
     rep = 1 # repeat -> rep
-    while rep < 2:
-        shadowMoveInput = input("\n(1-67)  >>> ")
-        if shadowMoveInput.isdigit():
-            shadowMoveGuess = int(shadowMoveInput)
-            if 1 <= shadowMoveGuess <= 67:
-                shadowMoveNum = random.randint(1, 67)
-                if shadowMoveGuess == shadowMoveNum:
-                    print("Wow. You.. Actually... Won... Good Job!")
-                    global winCounter
-                    winCounter += 1
-                    crown()
-                    rep += 5
+    global doubleLuckCounter, extraLifeCounter
+    if doubleLuckCounter >= 1:
+        print("Double Luck Used!")
+        while rep < 2:
+            shadowMoveInput = input("\n(1-67)  >>> ")
+            if shadowMoveInput.isdigit():
+                shadowMoveGuess = int(shadowMoveInput)
+                if 1 <= shadowMoveGuess <= 67:
+                    shadowMoveNum = random.randint(1, 67)
+                    shadowMoveNum2 = random.randint(1,67)
+                    if shadowMoveNum == shadowMoveNum2:
+                        shadowMoveNum = random.randint(1, 67)
+                        shadowMoveNum2 = random.randint(1, 67)
+                        if shadowMoveGuess == shadowMoveNum or shadowMoveGuess == shadowMoveNum2:
+                            print("Wow. You.. Actually... Won... Good Job!")
+                            global winCounter
+                            winCounter += 1
+                            crown()
+                            rep += 5
+                            doubleLuckCounter -= 1
+                        else:
+                            if extraLifeCounter >= 1:
+                                print("Extra Life Saved You!")
+                                print("You lost \U0001F61E")
+                                print("+0 Loss")
+                                rep += 5
+                                extraLifeCounter -= 1
+                                doubleLuckCounter -= 1
+                            else:
+                                print("You lost \U0001F61E")
+                                global loseCounter
+                                loseCounter += 1
+                                rep += 5
+                                doubleLuckCounter -= 1
+                    else:
+                        if shadowMoveGuess == shadowMoveNum or shadowMoveGuess == shadowMoveNum2:
+                            print("Wow. You.. Actually... Won... Good Job!")
+                            global winCounter
+                            winCounter += 1
+                            crown()
+                            rep += 5
+                            doubleLuckCounter -= 1
+                        else:
+                            if extraLifeCounter >= 1:
+                                print("Extra Life Saved You!")
+                                print("You lost \U0001F61E")
+                                print("+0 Loss")
+                                rep += 5
+                                extraLifeCounter -= 1
+                                doubleLuckCounter -= 1
+                            else:
+                                print("You lost \U0001F61E")
+                                global loseCounter
+                                loseCounter += 1
+                                rep += 5
+                                doubleLuckCounter -= 1
                 else:
-                    print("You lost \U0001F61E")
-                    global loseCounter
-                    loseCounter += 1
-                    rep += 5
+                    print("I said from 1-67, no more, no less..")
             else:
-                print("I said from 1-67, no more, no less..")
-        else:
-           print("Invalid Input. No Letters!")
+                print("Invalid Input. No Letters!")
+    else:
+        while rep < 2:
+            shadowMoveInput = input("\n(1-67)  >>> ")
+            if shadowMoveInput.isdigit():
+                shadowMoveGuess = int(shadowMoveInput)
+                if 1 <= shadowMoveGuess <= 67:
+                    shadowMoveNum = random.randint(1, 67)
+                    if shadowMoveGuess == shadowMoveNum:
+                        print("Wow. You.. Actually... Won... Good Job!")
+                        global winCounter
+                        winCounter += 1
+                        crown()
+                        rep += 5
+                    else:
+                        if extraLifeCounter >= 1:
+                            print("Extra Life Saved You!")
+                            print("You lost \U0001F61E")
+                            print("+0 Loss")
+                            rep += 5
+                            extraLifeCounter -= 1
+                        else:
+                            print("You lost \U0001F61E")
+                            global loseCounter
+                            loseCounter += 1
+                            rep += 5
+                else:
+                    print("I said from 1-67, no more, no less..")
+            else:
+                print("Invalid Input. No Letters!")
 
 
 ## C2 #
@@ -631,22 +1032,54 @@ def useFlashlight():
     tsa1 = "You light the area to see better, but your position is immediately revealed."
     typeWriter(tsa1)
     time.sleep(.67)
-    endMsg()
-    global loseCounter
-    loseCounter += 1
+    global extraLifeCounter
+    if extraLifeCounter >= 1:
+        print("You lost, but an extra life saved you!")
+        print("+0 Losses")
+        time.sleep(1.33)
+        endMsg()
+        extraLifeCounter -= 1
+    else:
+        endMsg()
+        global loseCounter
+        loseCounter += 1
 
 ## C3 #
 
 def useSupplies():
     clearText()
-    tus1 = "You equip the gear you found and move forward with confidence. Using the supplies to your advantage,\n\
-you avoid enemy patrols and successfully secure the objective. Mission accomplished."
-    typeWriter(tus1)
+    global winCounter, loseCounter, extraLifeCounter
+    print("The supply room is locked with an old mechanical keypad. Strange numbers and symbols are etched into the wall.\n\
+You only have \033[1;31mtwo tries\033[0m to solve the puzzle and unlock the door to use the gear inside—\033[31mfail, and the supplies remain out of reach\033[0m.")
     time.sleep(.67)
-    print("\n")
-    global winCounter
-    winCounter += 1
-    crown()
+    print("The Code is the result of this \033[1;32mFormula\033[0m")
+    print("((12 × 7) + 48 ÷ 6) × 3 - 25 + (18 ÷ 3) + 14")
+    numericCodeGuess = input("What is the code?\n\
+>>> ")
+    numericCodeAnswer = '271'
+    wrongCounter = 0
+    for _ in range(2):
+        if numericCodeGuess == numericCodeAnswer:
+            print("You cracked the code and completed the objective. Well done!")
+            winCounter += 1
+            crown()
+        elif wrongCounter == 0:
+            print("You're Wrong, Try again!")
+            wrongCounter += 1
+        elif wrongCounter == 1:
+            if extraLifeCounter >= 1:
+                print("Extra Life Saved You!")
+                print("The code was incorrect, and the objective was lost.")
+                print("+0 Loss")
+                extraLifeCounter -= 1
+                break
+            else:
+                print("The code was incorrect, and the objective was lost.")
+                loseCounter += 1
+                break
+        else:
+            print("You should not see this...")
+            pass
 
 def moveDeeper():
     clearText()
@@ -655,9 +1088,17 @@ Enemy patrols close in, forcing you to abort the mission."
     typeWriter(tmd1)
     time.sleep(.67)
     print("\n")
-    endMsg()
-    global loseCounter
-    loseCounter += 1
+    global extraLifeCounter
+    if extraLifeCounter >= 1:
+        print("You lost, but an extra life saved you!")
+        print("+0 Losses")
+        time.sleep(1.33)
+        endMsg()
+        extraLifeCounter -= 1
+    else:
+        endMsg()
+        global loseCounter
+        loseCounter += 1
 
 def waitAndPlan():
     clearText()
@@ -666,9 +1107,17 @@ Your chance to move forward is gone, and the mission ends."
     typeWriter(twap1)
     time.sleep(.67)
     print("\n")
-    endMsg()
-    global loseCounter
-    loseCounter += 1
+    global extraLifeCounter
+    if extraLifeCounter >= 1:
+        print("You lost, but an extra life saved you!")
+        print("+0 Losses")
+        time.sleep(1.33)
+        endMsg()
+        extraLifeCounter -= 1
+    else:
+        endMsg()
+        global loseCounter
+        loseCounter += 1
 
 def searchVehicles():
     clearText()
@@ -707,9 +1156,17 @@ def holdPosition():
     typeWriter(thp1)
     time.sleep(.67)
     print("\n")
-    endMsg()
-    global loseCounter
-    loseCounter += 1
+    global extraLifeCounter
+    if extraLifeCounter >= 1:
+        print("You lost, but an extra life saved you!")
+        print("+0 Losses")
+        time.sleep(1.33)
+        endMsg()
+        extraLifeCounter -= 1
+    else:
+        endMsg()
+        global loseCounter
+        loseCounter += 1
 
 def reroute():
     clearText()
@@ -717,9 +1174,17 @@ def reroute():
     typeWriter(trr1)
     time.sleep(.67)
     print("\n")
-    endMsg()
-    global loseCounter
-    loseCounter += 1
+    global extraLifeCounter
+    if extraLifeCounter >= 1:
+        print("You lost, but an extra life saved you!")
+        print("+0 Losses")
+        time.sleep(1.33)
+        endMsg()
+        extraLifeCounter -= 1
+    else:
+        endMsg()
+        global loseCounter
+        loseCounter += 1
 
 def retreat():
     clearText()
@@ -847,6 +1312,7 @@ def exitShop():
     playAgain()
 
 def secretCodeVar():
+    global winCounter
     clearText()
     returnText = "return"
     answer = str(input("What is the secret code? ('return' to return)\n\
@@ -854,7 +1320,6 @@ def secretCodeVar():
     if answer == 'wwssadadba':
         print("Nice, Secret Developer Cheat Code")
         print("+15 Wins")
-        global winCounter
         winCounter += 15
         time.sleep(1)
         playAgain()
@@ -878,19 +1343,129 @@ def enterSecretCode():
         shop()
 
 def doubleLuck():
-    print("Under Construction...")
-    time.sleep(1.5)
-    pass
+    clearText()
+    global loseCounter, winCounter, doubleLuckCounter
+    print("Doubles your odds of winning in a chance-based challenge")
+    print("3 per purchase, -1 per luck based challenge. Each use applies to one challenge only.")
+    print("Costs:\n")
+    print("""
+▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄
+▌        ▐  ▌        ▐  ▌        ▐
+▌1.3 Wins▐  ▌2.5 Loss▐  ▌3.Return▐
+▌        ▐  ▌        ▐  ▌        ▐
+▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀
+    """)
+    chooseOption(3)
+    if choice == 1:
+        if winCounter >= 3:
+            doubleLuckCounter += 3
+            winCounter -= 3
+            print("Success!")
+            print("\033[1;32mDouble Luck Uses\033[0m: " + str(doubleLuckCounter))
+            print("Your Current \033[1;32mBalance\033[0m: " + str(winCounter))
+        else:
+            print("You cannot afford this option, you need more wins!")
+            print("\033[1;32mDouble Luck Uses\033[0m: " + str(doubleLuckCounter))
+            print("Your Current \033[1;32mBalance\033[0m: " + str(winCounter))
+            time.sleep(1)
+            print("Enter to return to shop")
+            pause()
+            shop()
+    elif choice == 2:
+        if loseCounter >= 5:
+            doubleLuckCounter += 3
+            loseCounter -= 5
+            print("Success!")
+            print("\033[1;32mDouble Luck Uses\033[0m: " + str(doubleLuckCounter))
+            print("Your Current \033[1;32mBalance\033[0m: " + str(loseCounter))
+        else:
+            print("You cannot afford this option, you need more losses!")
+            print("\033[1;32mDouble Luck Uses\033[0m: " + str(doubleLuckCounter))
+            print("Your Current \033[1;32mBalance\033[0m: " + str(loseCounter))
+            time.sleep(1)
+            print("Enter to return to shop")
+            pause()
+            shop()
+    else:
+        print("Returning to shop...")
+        time.sleep(1.5)
+        shop()
+
+def giveCode():
+    clearText()
+    print("Sucks you are down bad for the code, but it is simply...")
+    pause()
+    clearText()
+    print("The Konami code using w, a, s, d for directions. Start is enter (to submit reply)")
+    pause()
+    shop()
 
 def specialMessage():
-    print("Under Construction...")
-    time.sleep(1.5)
-    pass
+    clearText()
+    print("""
+    Traveler, the path ahead hides rewards for those who remember the old sequence of steps:
+\033[1mStep forward twice, then retreat twice.
+Turn left, then right, then left again, followed by right.
+Tap A, then B, and finally take a leap to start anew.
+Only by following this secret rhythm exactly will the hidden door open.\033[0m
+(Hint, secret code is coded in wasd)
+""")
+    print("1. I cant do it, just give me the code \U0001FAE0")
+    print("2. Return, I got this!")
+    chooseOption(2)
+    if choice == 1:
+        giveCode()
+    else:
+        shop()
 
 def extraLife():
-    print("Under Construction...")
-    time.sleep(1.5)
-    pass
+    clearText()
+    global extraLifeCounter, winCounter, loseCounter
+    print("Prevents a loss in a challenge.")
+    print("3 per purchase, -1 per loss. Each use applies to one challenge only.")
+    print("Costs:\n")
+    print("""
+    ▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄
+    ▌        ▐  ▌        ▐  ▌        ▐
+    ▌1.5 Wins▐  ▌2.7 Loss▐  ▌3.Return▐
+    ▌        ▐  ▌        ▐  ▌        ▐
+    ▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀
+        """)
+    chooseOption(3)
+    if choice == 1:
+        if winCounter >= 5:
+            extraLifeCounter += 3
+            winCounter -= 5
+            print("Success!")
+            print("\033[1;35mExtra Lives\033[0m: " + str(extraLifeCounter))
+            print("Your Current \033[1;32mBalance\033[0m: " + str(winCounter))
+        else:
+            print("You cannot afford this option, you need more wins!")
+            print("\033[1;35mExtra Lives\033[0m: " + str(extraLifeCounter))
+            print("Your Current \033[1;32mBalance\033[0m: " + str(winCounter))
+            time.sleep(1)
+            print("Enter to return to shop")
+            pause()
+            shop()
+    elif choice == 2:
+        if loseCounter >= 7:
+            extraLifeCounter += 3
+            loseCounter -= 7
+            print("Success!")
+            print("\033[1;35mExtra Lives\033[0m: " + str(extraLifeCounter))
+            print("Your Current \033[1;32mBalance\033[0m: " + str(loseCounter))
+        else:
+            print("You cannot afford this option, you need more losses!")
+            print("\033[1;35mExtra Lives\033[0m: " + str(extraLifeCounter))
+            print("Your Current \033[1;32mBalance\033[0m: " + str(loseCounter))
+            time.sleep(1)
+            print("Enter to return to shop")
+            pause()
+            shop()
+    else:
+        print("Returning to shop...")
+        time.sleep(1.5)
+        shop()
 
 def shop():
     if winCounter >= 10 and loseCounter >= 10:
@@ -917,6 +1492,18 @@ def shop():
         ▐▌                 Wins: """ + str(winCounter) + """       ▐▌
          █                 Losses: """ + str(loseCounter) + """     █ 
           ▀φφφφφφφφφφφφφφφφφφφφφφφφφφφφφ▀""")
+    elif 100 <= winCounter <= 9999:
+        clearText()
+        print("""
+                  ▄φφφφφφφφφφφφφSHOPφφφφφφφφφφφφ▄  
+                 █                               █ 
+                ▐▌ 1. Double Luck        5. Exit ▐▌
+                █▌ 2. Special Message            ▐█
+                █▌ 3. Extra Life                 ▐█
+                █▌ 4. Enter Secret Code          ▐█
+                ▐▌                 Wins: """ + str(winCounter) + """    ▐▌
+                 █                 Losses: """ + str(loseCounter) + """     █ 
+                  ▀φφφφφφφφφφφφφφφφφφφφφφφφφφφφφ▀""")
     elif winCounter >= 10:
         clearText()
         print("""
@@ -974,8 +1561,10 @@ def level_1_entry(): #######################temp commented out
 Police sirens echo behind you as your team waits for your command.\n\
 This is the moment where \033[1;32myou\033[32m decide how to enter the building\033[0m, knowing that your choice will affect how \033[1;31mdangerous\033[0m the mission becomes.\033[0m\n")
 
-    print("\n\n\033[1;32mWin\033[0m Counter: " + str(winCounter))
-    print("\033[1;31mLose\033[0m Counter: " + str(loseCounter))
+    print("\n\n\033[1;32mWins\033[0m: " + str(winCounter))
+    print("\033[1;31mLosses\033[0m: " + str(loseCounter))
+    print("\033[1;32mDouble Luck Uses\033[0m: " + str(doubleLuckCounter))
+    print("\033[1;35mExtra Lives\033[0m: " + str(extraLifeCounter))
 
     time.sleep(.25)
     print("\n")
@@ -1014,5 +1603,3 @@ while True:
         skipIntro()
     startGame()
     playAgain()
-
-
