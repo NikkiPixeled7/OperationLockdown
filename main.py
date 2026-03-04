@@ -1,4 +1,5 @@
 ############## Import ##############
+
 import random, time, sys, os, shutil, platform
 from ASCIIArt import gameLogo, mazeGame, shopAndQuit, sadFace, sadFace2, simpleSadFace, crown
 
@@ -663,7 +664,7 @@ def oneTry():
 def fourTries():
     j = 0
     l = 0
-    global doubleLuckCounter, extraLifeCounter
+    global doubleLuckCounter, extraLifeCounter, loseCounter, winCounter
     if doubleLuckCounter >= 1:
         print("Double Luck Used!")
         while j < 4:
@@ -1527,7 +1528,8 @@ def shop():
 
 def funFact():
     clearText()
-    print("\033[1;32mFun Fact\033[0;1m, This Game \033[1;35m34+\033[0;1m Possible Game Endings\033[0m\n")
+    print("\033[1;32mFun Fact\033[0;1m, This Game \033[1;35m34+\033[0;1m Possible Game Endings\033[0m\n\
+As well as 1591 Lines Of Code, About One 1131th Of Minecraft's")
     time.sleep(1.5)
 
 def level_1_entry(): #######################temp commented out
@@ -1570,7 +1572,6 @@ This is the moment where \033[1;32myou\033[32m decide how to enter the building\
         quitNow()
     else:
         funFact()
-
 
 def startGame():
     pause()
