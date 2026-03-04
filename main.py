@@ -138,7 +138,7 @@ def breachObjective():
     time.sleep(.67)
     breachGuess = random.randint(1,3)
     if doubleLuckCounter >= 1:
-        print("Double Luck used! Odds are doubled for this round!")
+        print("\nDoubleLuckUsed! Odds are doubled for this round!")
         time.sleep(2)
         if breachGuess == 1 or breachGuess == 2:
             print("\nGood Job You Win!!!")
@@ -627,7 +627,7 @@ def oneTry():
     global doubleLuckCounter, extraLifeCounter, winCounter, loseCounter
     if doubleLuckCounter >= 1:
         if win <= 70:
-            print("Double Luck Used!")
+            print("\nDoubleLuckUsed!")
             print("You win the 70/30, nice job!")
             print(win)
             winCounter += 1
@@ -666,7 +666,7 @@ def fourTries():
     l = 0
     global doubleLuckCounter, extraLifeCounter, loseCounter, winCounter
     if doubleLuckCounter >= 1:
-        print("Double Luck Used!")
+        print("\nDoubleLuckUsed!")
         while j < 4:
             win2 = random.randint(1, 100)
             if win2 >= 1 and win2 <= 16:
@@ -925,7 +925,7 @@ You think you lost but there is the smallest chance of turnaround... (pick a num
     rep = 1 # repeat -> rep
     global doubleLuckCounter, extraLifeCounter, winCounter, loseCounter
     if doubleLuckCounter >= 1:
-        print("Double Luck Used!")
+        print("\nDoubleLuckUsed!")
         while rep < 2:
             shadowMoveInput = input("\n(1-67)  >>> ")
             if shadowMoveInput.isdigit():
@@ -1454,7 +1454,7 @@ def extraLife():
         shop()
 
 def shop():
-    if winCounter >= 10 and loseCounter >= 10:
+    if 100 >= winCounter >= 10 and 100 >= loseCounter >= 10:
         clearText()
         print("""
           ▄φφφφφφφφφφφφφSHOPφφφφφφφφφφφφ▄  
@@ -1478,18 +1478,42 @@ def shop():
         ▐▌                 Wins: """ + str(winCounter) + """       ▐▌
          █                 Losses: """ + str(loseCounter) + """     █ 
           ▀φφφφφφφφφφφφφφφφφφφφφφφφφφφφφ▀""")
+    elif 100 <= winCounter <= 9999 and 100 <= loseCounter <= 9999:
+        clearText()
+        print("""
+          ▄φφφφφφφφφφφφφSHOPφφφφφφφφφφφφ▄  
+         █                               █ 
+        ▐▌ 1. Double Luck        5. Exit ▐▌
+        █▌ 2. Special Message            ▐█
+        █▌ 3. Extra Life                 ▐█
+        █▌ 4. Enter Secret Code          ▐█
+        ▐▌                 Wins: """ + str(winCounter) + """    ▐▌
+         █                 Losses: """ + str(loseCounter) + """  █ 
+          ▀φφφφφφφφφφφφφφφφφφφφφφφφφφφφφ▀""")
     elif 100 <= winCounter <= 9999:
         clearText()
         print("""
-                  ▄φφφφφφφφφφφφφSHOPφφφφφφφφφφφφ▄  
-                 █                               █ 
-                ▐▌ 1. Double Luck        5. Exit ▐▌
-                █▌ 2. Special Message            ▐█
-                █▌ 3. Extra Life                 ▐█
-                █▌ 4. Enter Secret Code          ▐█
-                ▐▌                 Wins: """ + str(winCounter) + """    ▐▌
-                 █                 Losses: """ + str(loseCounter) + """     █ 
-                  ▀φφφφφφφφφφφφφφφφφφφφφφφφφφφφφ▀""")
+          ▄φφφφφφφφφφφφφSHOPφφφφφφφφφφφφ▄  
+         █                               █ 
+        ▐▌ 1. Double Luck        5. Exit ▐▌
+        █▌ 2. Special Message            ▐█
+        █▌ 3. Extra Life                 ▐█
+        █▌ 4. Enter Secret Code          ▐█
+        ▐▌                 Wins: """ + str(winCounter) + """    ▐▌
+         █                 Losses: """ + str(loseCounter) + """     █ 
+          ▀φφφφφφφφφφφφφφφφφφφφφφφφφφφφφ▀""")
+    elif 100 <= loseCounter <= 9999:
+        clearText()
+        print("""
+          ▄φφφφφφφφφφφφφSHOPφφφφφφφφφφφφ▄  
+         █                               █ 
+        ▐▌ 1. Double Luck        5. Exit ▐▌
+        █▌ 2. Special Message            ▐█
+        █▌ 3. Extra Life                 ▐█
+        █▌ 4. Enter Secret Code          ▐█
+        ▐▌                 Wins: """ + str(winCounter) + """       ▐▌
+         █                 Losses: """ + str(loseCounter) + """  █ 
+          ▀φφφφφφφφφφφφφφφφφφφφφφφφφφφφφ▀""")
     elif winCounter >= 10:
         clearText()
         print("""
@@ -1529,8 +1553,8 @@ def shop():
 
 def funFact():
     clearText()
-    print("\033[1;32mFun Fact\033[0;1m, This Game \033[1;35m34+\033[0;1m Possible Game Endings\033[0m\n\
-As well as 1591 Lines Of Code, About One 1131th Of Minecraft's")
+    print("\033[1;32mFun Fact\033[0;1m, This Game \033[1;35m52\033[0;1m Possible Game Endings\033[0m\n\
+\033[1mAs well as 1615 Lines Of Code, About 1/1115th Of Minecraft's.\033[0m\n")
     time.sleep(1.5)
 
 def level_1_entry(): #######################temp commented out
