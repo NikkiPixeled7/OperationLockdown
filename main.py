@@ -130,7 +130,7 @@ def chooseOption(numOfOpt):
 
 def breachObjective():
     clearText()
-    global doubleLuckCounter, extraLifeCounter
+    global doubleLuckCounter, extraLifeCounter, winCounter, loseCounter
     tps1 = "You breach the objective room successfully, but the tension is high. If your timing is perfect, you defuse the bomb and complete the mission.\n\
     If not, a misstep triggers the explosives, ending the operation in failure. (33% Chance)"
     typeWriter(tps1)
@@ -141,40 +141,34 @@ def breachObjective():
         time.sleep(2)
         if breachGuess == 1 or breachGuess == 2:
             print("\nGood Job You Win!!!")
-            global winCounter
             winCounter += 1
             crown()
             doubleLuckCounter -= 1
         elif breachGuess == 3:
             if extraLifeCounter >= 1:
                 endMsg()
-                global loseCounter
                 print("You lost, but an extra life saved you!")
                 print("+0 Losses")
                 doubleLuckCounter -= 1
                 extraLifeCounter -= 1
             else:
                 endMsg()
-                global loseCounter
                 loseCounter += 1
                 doubleLuckCounter -= 1
 
     else:
         if breachGuess == 2:
             print("\nGood Job You Win!!!")
-            global winCounter
             winCounter += 1
             crown()
         elif breachGuess == 3 or breachGuess == 1:
             if extraLifeCounter >= 1:
                 endMsg()
-                global loseCounter
                 print("You lost, but an extra life saved you!")
                 print("+0 Losses")
                 extraLifeCounter -= 1
             else:
                 endMsg()
-                global loseCounter
                 loseCounter += 1
 
 def pushStairs():
@@ -629,13 +623,12 @@ def dropIn():
 
 def oneTry():
     win = random.randint(1, 100)
-    global doubleLuckCounter, extraLifeCounter
+    global doubleLuckCounter, extraLifeCounter, winCounter, loseCounter
     if doubleLuckCounter >= 1:
         if win <= 70:
             print("Double Luck Used!")
             print("You win the 70/30, nice job!")
             print(win)
-            global winCounter
             winCounter += 1
             doubleLuckCounter -= 1
             crown()
@@ -648,7 +641,6 @@ def oneTry():
                 extraLifeCounter -= 1
             else:
                 print("You \033[1;31mlost\033[0m the 70/30 \U0001F61E")
-                global loseCounter
                 loseCounter += 1
                 doubleLuckCounter -= 1
 
@@ -656,7 +648,6 @@ def oneTry():
         if win <= 35:
             print("You win the 35/65, nice job!")
             print(win)
-            global winCounter
             winCounter += 1
             crown()
         else:
@@ -667,7 +658,6 @@ def oneTry():
                 extraLifeCounter -= 1
             else:
                 print("You \033[1;31mlost\033[0m the 35/65 \U0001F61E")
-                global loseCounter
                 loseCounter += 1
 
 def fourTries():
@@ -707,7 +697,6 @@ def fourTries():
             win2 = random.randint(1, 100)
             if 1 <= win2 <= 8:
                 print("You \033[1;32mwin\033[0m the 8% chance \U0001F92F")
-                global winCounter
                 winCounter += 1
                 crown()
                 l = 67  # hehe 67
@@ -724,7 +713,6 @@ def fourTries():
                     extraLifeCounter -= 1
                 else:
                     print("You lost \U0001F61E")
-                    global loseCounter
                     loseCounter += 1
 
 def silentTakedown():
@@ -934,7 +922,7 @@ You think you lost but there is the smallest chance of turnaround... (pick a num
     time.sleep(.67)
     print("\n")
     rep = 1 # repeat -> rep
-    global doubleLuckCounter, extraLifeCounter
+    global doubleLuckCounter, extraLifeCounter, winCounter, loseCounter
     if doubleLuckCounter >= 1:
         print("Double Luck Used!")
         while rep < 2:
@@ -971,7 +959,6 @@ You think you lost but there is the smallest chance of turnaround... (pick a num
                     else:
                         if shadowMoveGuess == shadowMoveNum or shadowMoveGuess == shadowMoveNum2:
                             print("Wow. You.. Actually... Won... Good Job!")
-                            global winCounter
                             winCounter += 1
                             crown()
                             rep += 5
@@ -986,7 +973,6 @@ You think you lost but there is the smallest chance of turnaround... (pick a num
                                 doubleLuckCounter -= 1
                             else:
                                 print("You lost \U0001F61E")
-                                global loseCounter
                                 loseCounter += 1
                                 rep += 5
                                 doubleLuckCounter -= 1
@@ -1003,7 +989,6 @@ You think you lost but there is the smallest chance of turnaround... (pick a num
                     shadowMoveNum = random.randint(1, 67)
                     if shadowMoveGuess == shadowMoveNum:
                         print("Wow. You.. Actually... Won... Good Job!")
-                        global winCounter
                         winCounter += 1
                         crown()
                         rep += 5
@@ -1016,7 +1001,6 @@ You think you lost but there is the smallest chance of turnaround... (pick a num
                             extraLifeCounter -= 1
                         else:
                             print("You lost \U0001F61E")
-                            global loseCounter
                             loseCounter += 1
                             rep += 5
                 else:
